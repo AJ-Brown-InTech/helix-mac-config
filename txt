@@ -1,0 +1,2 @@
+   chmod +x helix_lsp.bash
+   sudo  ./helix_lsp.bash
