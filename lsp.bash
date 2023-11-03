@@ -42,6 +42,14 @@ pip3 install cmake-language-server
 echo "Install python"
 pip3 install python-lsp-server
 
+# install python lsp (mainly for c)
+echo "Install python"
+npm install -g dockerfile-language-server-nodejs
+
+# install python lsp (mainly for c)
+echo "Install python"
+npm install -g yaml-language-server
+
 # Markdown (via ltex-ls. Note: this has excellent features like
 
 # spelling and grammar check but is a ~269MB download).
