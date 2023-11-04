@@ -1,0 +1,30 @@
+# Full documentation: https://docs.helix-editor.com/configuration.html
+
+theme = "everforest_dark"
+[editor]
+rulers = [80, 120]
+mouse = true
+line-number = "relative"
+
+
+[editor.file-picker]
+hidden = false
+parents = false
+git-ignore = false
+
+[editor.indent-guides]
+render = true
+character = "╎"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.whitespace]
+render = "all"
+
+[keys.normal]
+# Use system clipboard
+y = "yank_main_selection_to_clipboard"
+p = "paste_clipboard_before"
