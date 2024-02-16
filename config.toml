@@ -1,28 +1,124 @@
 # Full documentation: https://docs.helix-editor.com/configuration.html
+theme = "molokai"
 
-theme = "everforest_dark"
+[editor.statusline.mode]
+normal = "NORMAL"
+insert = "INSERT"
+select = "SELECT"
+
+[editor.whitespace.characters]
+space = "·"
+nbsp = "⍽"
+tab = "→"
+newline = "⏎"
+tabpad = "·"
+
+# Configuration for Editor
 [editor]
-rulers = [80, 120]
+scrolloff = 5
 mouse = true
-line-number = "relative"
+middle-click-paste = true
+scroll-lines = 3
+shell = ["sh", "-c"]
+line-number = "absolute"  # relative
+cursorline = false
+cursorcolumn = false
+auto-completion = true
+auto-format = true
+auto-save = false
+idle-timeout = 400
+preview-completion-insert = true
+completion-trigger-len = 2
+completion-replace = false
+auto-info = true
+true-color = false
+undercurl = false
+bufferline = "never"
+color-modes = false
+text-width = 80
+workspace-lsp-roots = []
+default-line-ending = "native"
+insert-final-newline = true
+rulers = [80, 120]
 
 
+# Configuration for Editor Statusline
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+center = []
+right = ["diagnostics", "selections", "register", "position", "file-encoding"]
+separator = "│"
+
+# Configuration for Language Servers Integration
+[editor.lsp]
+enable = true
+display-messages = false
+auto-signature-help = true
+display-inlay-hints = false
+display-signature-help-docs = true
+snippets = true
+goto-reference-include-declaration = true
+
+# Configuration for Cursor Shape
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+# Configuration for File Picker
 [editor.file-picker]
 hidden = false
-parents = false
-git-ignore = false
+follow-symlinks = true
+deduplicate-links = true
+parents = true
+ignore = true
+git-ignore = true
+git-global = true
+git-exclude = true
 
+# Configuration for Auto Pairs
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+'<' = '>'
+
+# Configuration for Search
+[editor.search]
+smart-case = true
+wrap-around = true
+
+# Configuration for Whitespace Rendering
+[editor.whitespace]
+render = "all"
+
+# Configuration for Indent Guides
 [editor.indent-guides]
 render = true
 character = "╎"
+skip-levels = 0
 
-[editor.cursor-shape]
-insert = "bar"
-normal = "block"
-select = "underline"
+# Configuration for Gutters
+[editor.gutters]
+layout = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
 
-[editor.whitespace]
-render = "all"
+[editor.gutters.line-numbers]
+min-width = 3
+
+# Configuration for Soft Wrap
+[editor.soft-wrap]
+enable = false
+max-wrap = 20
+max-indent-retain = 40
+wrap-indicator = "↪"
+wrap-at-text-width = false
+
+# Configuration for Smart Tab
+[editor.smart-tab]
+enable = true
+supersede-menu = false
 
 [keys.normal]
 # Use system clipboard
