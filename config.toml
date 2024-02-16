@@ -7,11 +7,7 @@ insert = "INSERT"
 select = "SELECT"
 
 [editor.whitespace.characters]
-space = "·"
-nbsp = "⍽"
-tab = "→"
-newline = "⏎"
-tabpad = "·"
+newline =  "⏎"
 
 # Configuration for Editor
 [editor]
@@ -19,22 +15,21 @@ scrolloff = 5
 mouse = true
 middle-click-paste = true
 scroll-lines = 3
-shell = ["sh", "-c"]
+#shell = ["sh", "-c"]
 line-number = "absolute"  # relative
-cursorline = false
+cursorline = true
 cursorcolumn = false
 auto-completion = true
 auto-format = true
-auto-save = false
+auto-save = true
 idle-timeout = 400
 preview-completion-insert = true
-completion-trigger-len = 2
+completion-trigger-len = 0
 completion-replace = false
 auto-info = true
 true-color = false
 undercurl = false
-bufferline = "never"
-color-modes = false
+color-modes = true
 text-width = 80
 workspace-lsp-roots = []
 default-line-ending = "native"
@@ -52,9 +47,9 @@ separator = "│"
 # Configuration for Language Servers Integration
 [editor.lsp]
 enable = true
-display-messages = false
+display-messages = true
 auto-signature-help = true
-display-inlay-hints = false
+display-inlay-hints = true
 display-signature-help-docs = true
 snippets = true
 goto-reference-include-declaration = true
