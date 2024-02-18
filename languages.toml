@@ -33,7 +33,7 @@ config.hostInfo = "helix"
 name = "typescript"
 injection-regex = "(ts|typescript)"
 language-id = "typescript"
-language-servers = [ "typescript-language-server" ]
+language-servers = [ "typescript-language-server"]
 grammar = "typescript"
 
 [[language]]
@@ -44,25 +44,19 @@ comment-token = "//"
 language-servers = [ "typescript-language-server" ]
 grammar = "javascript"
 
-# SVELTE CONFIGURATION
-#[[language]]
-#name = "svelte"
-#language-servers = ["svelte-language-server"]
-
 # REACT CONFIGURATION
 [[language]]
 name = "jsx"
-injection-regex = "(jsx|react|react-native)"
+injection-regex = "(jsx|react)"
 language-id = "javascript"
 language-servers = ["typescript-language-server"]
 grammar = "javascript"
 
 [[language]]
 name = "tsx"
-injection-regex = "(tsx|react|react-native)"
+injection-regex = "(tsx|react)"
 language-id = "typescript"
 language-servers = ["typescript-language-server"]
-grammar = "typescript"
 
 # CSS CONFIGURATION
 [[language]]
@@ -74,3 +68,55 @@ auto-format = true
 name = "yaml"
 auto-format = true
 language-servers = ["yaml-language-server"]
+
+[[language]]
+name = "svelte"
+auto-format = false
+language-servers = ["svelte-language-server"]
+
+[[language]]
+name = "html"
+language-servers = [ "vscode-html-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "css"
+language-servers = [ "vscode-css-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "jsx"
+language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "tsx"
+language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "svelte"
+language-servers = [ "svelteserver", "tailwindcss-ls" ]
+
+[language-server]
+biome = { command = "biome", args = ["lsp-proxy"] }
+
+[[language]]
+name = "javascript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "tsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "jsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "json"
+language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]

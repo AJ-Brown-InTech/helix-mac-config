@@ -49,7 +49,8 @@ npm install -g dockerfile-language-server-nodejs
 # install python lsp (mainly for c)
 echo "Install python"
 npm install -g yaml-language-server
-
+npm install --save-dev --save-exact @biomejs/biome
+npm install -g typescript-language-server typescript
 # Markdown (via ltex-ls. Note: this has excellent features like
 
 # spelling and grammar check but is a ~269MB download).
