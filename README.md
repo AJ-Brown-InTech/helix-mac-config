@@ -44,5 +44,3 @@ cp /path/to/cloned/repo/languages.toml ~/.config/helix/
 ### Step 4: Restart your Text Editor
 
 Restart your Helix text editor, and your development environment should be set up according to your personal preferences.
-
-Now, you should have a customized Helix text editor environment ready for your development needs. Feel free to make any additional adjustments or modifications based on your preferences.
