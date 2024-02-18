@@ -51,6 +51,7 @@ echo "Install python"
 npm install -g yaml-language-server
 npm install --save-dev --save-exact @biomejs/biome
 npm install -g typescript-language-server typescript
+npm i vscode-json-languageserver
 # Markdown (via ltex-ls. Note: this has excellent features like
 
 # spelling and grammar check but is a ~269MB download).
