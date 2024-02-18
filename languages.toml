@@ -34,6 +34,7 @@ name = "typescript"
 injection-regex = "(ts|typescript)"
 language-id = "typescript"
 language-servers = [ "typescript-language-server" ]
+grammar = "typescript"
 
 [[language]]
 name = "javascript"
@@ -43,8 +44,33 @@ comment-token = "//"
 language-servers = [ "typescript-language-server" ]
 grammar = "javascript"
 
+# SVELTE CONFIGURATION
+#[[language]]
+#name = "svelte"
+#language-servers = ["svelte-language-server"]
+
+# REACT CONFIGURATION
+[[language]]
+name = "jsx"
+injection-regex = "(jsx|react|react-native)"
+language-id = "javascript"
+language-servers = ["typescript-language-server"]
+grammar = "javascript"
+
+[[language]]
+name = "tsx"
+injection-regex = "(tsx|react|react-native)"
+language-id = "typescript"
+language-servers = ["typescript-language-server"]
+grammar = "typescript"
+
 # CSS CONFIGURATION
 [[language]]
 name = "css"
 language-servers = [ "vscode-css-language-server" ]
 auto-format = true
+
+[[language]]
+name = "yaml"
+auto-format = true
+language-servers = ["yaml-language-server"]

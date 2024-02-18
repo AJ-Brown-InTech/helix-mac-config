@@ -1,5 +1,6 @@
+
 # Full documentation: https://docs.helix-editor.com/configuration.html
-theme = "molokai"
+theme = "everforest_dark"
 
 [editor.statusline.mode]
 normal = "NORMAL"
@@ -22,14 +23,13 @@ cursorcolumn = false
 auto-completion = true
 #auto-format = true
 auto-save = true
+true-color = true
 idle-timeout = 400
 preview-completion-insert = true
 completion-trigger-len = 0
 completion-replace = false
 auto-info = true
-true-color = false
 undercurl = false
-color-modes = true
 text-width = 80
 workspace-lsp-roots = []
 default-line-ending = "native"
