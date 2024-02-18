@@ -20,7 +20,7 @@ line-number = "absolute"  # relative
 cursorline = true
 cursorcolumn = false
 auto-completion = true
-auto-format = true
+#auto-format = true
 auto-save = true
 idle-timeout = 400
 preview-completion-insert = true
@@ -35,7 +35,6 @@ workspace-lsp-roots = []
 default-line-ending = "native"
 insert-final-newline = true
 rulers = [80, 120]
-
 
 # Configuration for Editor Statusline
 [editor.statusline]
@@ -69,7 +68,7 @@ parents = true
 ignore = true
 git-ignore = true
 git-global = true
-git-exclude = true
+git-exclude = false
 
 # Configuration for Auto Pairs
 [editor.auto-pairs]
