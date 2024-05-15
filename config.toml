@@ -1,6 +1,5 @@
-
 # Full documentation: https://docs.helix-editor.com/configuration.html
-theme = "everforest_dark"
+theme = "molokai"
 
 [editor.statusline.mode]
 normal = "NORMAL"
@@ -8,7 +7,7 @@ insert = "INSERT"
 select = "SELECT"
 
 [editor.whitespace.characters]
-newline =  "⏎"
+newline = "⏎"
 
 # Configuration for Editor
 [editor]
@@ -23,13 +22,14 @@ cursorcolumn = false
 auto-completion = true
 auto-format = true
 auto-save = true
-true-color = true
 idle-timeout = 400
 preview-completion-insert = true
 completion-trigger-len = 0
 completion-replace = false
 auto-info = true
+true-color = false
 undercurl = false
+color-modes = true
 text-width = 80
 workspace-lsp-roots = []
 default-line-ending = "native"
@@ -68,7 +68,7 @@ parents = true
 ignore = true
 git-ignore = true
 git-global = true
-git-exclude = false
+git-exclude = true
 
 # Configuration for Auto Pairs
 [editor.auto-pairs]
