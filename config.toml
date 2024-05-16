@@ -1,5 +1,5 @@
 # Full documentation: https://docs.helix-editor.com/configuration.html
-theme = "molokai"
+theme = "gruvbox"
 
 [editor.statusline.mode]
 normal = "NORMAL"
