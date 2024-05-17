@@ -1,22 +1,15 @@
 # Full documentation: https://docs.helix-editor.com/configuration.html
+
+# General Configuration
 theme = "gruvbox"
 
-[editor.statusline.mode]
-normal = "NORMAL"
-insert = "INSERT"
-select = "SELECT"
-
-[editor.whitespace.characters]
-newline = "⏎"
-
-# Configuration for Editor
+# Editor Configuration
 [editor]
 scrolloff = 5
 mouse = true
 middle-click-paste = true
 scroll-lines = 3
-#shell = ["sh", "-c"]
-line-number = "absolute"  # relative
+line-number = "absolute"  # Options: "absolute", "relative"
 cursorline = true
 cursorcolumn = false
 auto-completion = true
@@ -32,18 +25,24 @@ undercurl = false
 color-modes = true
 text-width = 80
 workspace-lsp-roots = []
-default-line-ending = "native"
+default-line-ending = "native"  # Options: "native", "lf", "crlf", etc.
 insert-final-newline = true
 rulers = [80, 120]
 
-# Configuration for Editor Statusline
+# Statusline Configuration
 [editor.statusline]
-left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
-center = []
+left = ["mode", "spinner", "file-name", "file-type", "read-only-indicator", "file-modification-indicator"]
+center = ["version-control", "total-line-numbers"]
 right = ["diagnostics", "selections", "register", "position", "file-encoding"]
 separator = "│"
 
-# Configuration for Language Servers Integration
+# Mode Text Configuration
+[editor.statusline.mode]
+normal = "NORMAL"
+insert = "INSERT"
+select = "SELECT"
+
+# Language Server Integration
 [editor.lsp]
 enable = true
 display-messages = true
@@ -53,15 +52,15 @@ display-signature-help-docs = true
 snippets = true
 goto-reference-include-declaration = true
 
-# Configuration for Cursor Shape
+# Cursor Shape Configuration
 [editor.cursor-shape]
 normal = "block"
 insert = "bar"
 select = "underline"
 
-# Configuration for File Picker
+# File Picker Configuration
 [editor.file-picker]
-hidden = false
+hidden = true
 follow-symlinks = true
 deduplicate-links = true
 parents = true
@@ -70,7 +69,7 @@ git-ignore = true
 git-global = true
 git-exclude = true
 
-# Configuration for Auto Pairs
+# Auto Pairs Configuration
 [editor.auto-pairs]
 '(' = ')'
 '{' = '}'
@@ -79,29 +78,32 @@ git-exclude = true
 '`' = '`'
 '<' = '>'
 
-# Configuration for Search
+# Search Configuration
 [editor.search]
 smart-case = true
 wrap-around = true
 
-# Configuration for Whitespace Rendering
+# Whitespace Rendering Configuration
 [editor.whitespace]
 render = "all"
 
-# Configuration for Indent Guides
+[editor.whitespace.characters]
+newline = "⏎"
+
+# Indent Guides Configuration
 [editor.indent-guides]
 render = true
 character = "╎"
 skip-levels = 0
 
-# Configuration for Gutters
+# Gutters Configuration
 [editor.gutters]
 layout = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
 
 [editor.gutters.line-numbers]
 min-width = 3
 
-# Configuration for Soft Wrap
+# Soft Wrap Configuration
 [editor.soft-wrap]
 enable = false
 max-wrap = 20
@@ -109,12 +111,7 @@ max-indent-retain = 40
 wrap-indicator = "↪"
 wrap-at-text-width = false
 
-# Configuration for Smart Tab
+# Smart Tab Configuration
 [editor.smart-tab]
 enable = true
 supersede-menu = false
-
-[keys.normal]
-# Use system clipboard
-y = "yank_main_selection_to_clipboard"
-p = "paste_clipboard_before"
