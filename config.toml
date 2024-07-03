@@ -15,10 +15,14 @@ cursorcolumn = false
 auto-completion = true
 auto-format = true
 auto-save = true
+bufferline = "always"
+indent-heuristic = "hybrid"
+jump-label-alphabet = "abcdefghijklmnopqrstuvwxyz"
 idle-timeout = 400
 preview-completion-insert = true
 completion-trigger-len = 0
 completion-replace = false
+completion-timeout = 250
 auto-info = true
 true-color = false
 undercurl = false
@@ -60,11 +64,11 @@ select = "underline"
 
 # File Picker Configuration
 [editor.file-picker]
-hidden = true
+hidden = false
 follow-symlinks = true
 deduplicate-links = true
 parents = true
-ignore = true
+ignore = false
 git-ignore = true
 git-global = true
 git-exclude = true
@@ -89,6 +93,11 @@ render = "all"
 
 [editor.whitespace.characters]
 newline = "⏎"
+space = "·"
+nbsp = "⍽"
+nnbsp = "␣"
+tab = "→"
+tabpad = "·"
 
 # Indent Guides Configuration
 [editor.indent-guides]
@@ -102,6 +111,7 @@ layout = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
 
 [editor.gutters.line-numbers]
 min-width = 3
+
 
 # Soft Wrap Configuration
 [editor.soft-wrap]
