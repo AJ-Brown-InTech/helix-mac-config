@@ -1,7 +1,7 @@
 # Full documentation: https://docs.helix-editor.com/configuration.html
 
 # General Configuration
-theme = "gruvbox"
+theme = "sonokai"
 
 # Editor Configuration
 [editor]
@@ -11,7 +11,7 @@ middle-click-paste = true
 scroll-lines = 3
 line-number = "absolute"  # Options: "absolute", "relative"
 cursorline = true
-cursorcolumn = false
+cursorcolumn = true
 auto-completion = true
 auto-format = true
 auto-save = true
@@ -125,3 +125,6 @@ wrap-at-text-width = false
 [editor.smart-tab]
 enable = true
 supersede-menu = false
+
+
+
