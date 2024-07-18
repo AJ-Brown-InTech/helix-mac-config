@@ -54,10 +54,9 @@ name = "svelte"
 language-id = "svelte"
 injection-regex = "(js|javascript|svelte|ts|)"
 comment-token = "//"
-language-servers = [ "svelte-language-server" ]
-# language-servers = [ { name = "tailwindcss-ls", except-features = ["hover"] }, "svelteserver", "emmet-ls", "eslint-ls" ]
+# language-servers = [ "svelte-language-server" ]
+language-servers = [ { name = "tailwindcss-language-server", except-features = ["hover"] }, "svelteserver", "emmet-ls", "eslint-ls" ]
 formatter = { command = "prettier", args = ["--parser", "html"]}
-grammar = "svelte"
 auto-format = false
 
 # CSS CONFIGURATION
