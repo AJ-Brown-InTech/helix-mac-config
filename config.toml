@@ -125,6 +125,3 @@ wrap-at-text-width = false
 [editor.smart-tab]
 enable = true
 supersede-menu = false
-
-
-
