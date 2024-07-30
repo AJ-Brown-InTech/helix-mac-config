@@ -5,39 +5,38 @@ theme = "sonokai"
 
 # Editor Configuration
 [editor]
+auto-pairs = true
 scrolloff = 5
 mouse = true
 middle-click-paste = true
-scroll-lines = 3
 line-number = "absolute"  # Options: "absolute", "relative"
 cursorline = true
 cursorcolumn = true
 auto-completion = true
-auto-format = true
+auto-format = false
 auto-save = true
 bufferline = "always"
 indent-heuristic = "hybrid"
 jump-label-alphabet = "abcdefghijklmnopqrstuvwxyz"
 idle-timeout = 400
 preview-completion-insert = true
-completion-trigger-len = 0
+completion-trigger-len = 1
 completion-replace = false
 completion-timeout = 250
 auto-info = true
-true-color = false
-undercurl = false
+true-color = true
+undercurl = true
 color-modes = true
-text-width = 80
+text-width = 100
 workspace-lsp-roots = []
-default-line-ending = "native"  # Options: "native", "lf", "crlf", etc.
 insert-final-newline = true
-rulers = [80, 120]
+rulers = [80, 100]
 
 # Statusline Configuration
 [editor.statusline]
-left = ["mode", "spinner", "file-name", "file-type", "read-only-indicator", "file-modification-indicator"]
+left = ["mode", "spinner", "file-name", "file-type" ]
 center = ["version-control", "total-line-numbers"]
-right = ["diagnostics", "selections", "register", "position", "file-encoding"]
+right = ["diagnostics", "selections", "register", "position" ]
 separator = "│"
 
 # Mode Text Configuration
@@ -65,8 +64,6 @@ select = "underline"
 # File Picker Configuration
 [editor.file-picker]
 hidden = false
-follow-symlinks = true
-deduplicate-links = true
 parents = true
 ignore = false
 git-ignore = true
@@ -99,11 +96,19 @@ nnbsp = "␣"
 tab = "→"
 tabpad = "·"
 
+# or control each character
+#[editor.whitespace.render]
+#space = "all"
+#tab = "all"
+#nbsp = "none"
+#nnbsp = "none"
+#newline = "none"
+
 # Indent Guides Configuration
 [editor.indent-guides]
 render = true
-character = "╎"
-skip-levels = 0
+character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+skip-levels = 1
 
 # Gutters Configuration
 [editor.gutters]
