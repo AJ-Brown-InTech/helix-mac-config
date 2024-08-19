@@ -5,7 +5,6 @@ theme = "sonokai"
 
 # Editor Configuration
 [editor]
-auto-pairs = true
 scrolloff = 5
 mouse = true
 middle-click-paste = true
