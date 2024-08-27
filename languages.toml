@@ -21,9 +21,15 @@ rangeVariableTypes = true
 name = "python"
 comment-token = "#"
 language-servers = [ "pylsp" ]
-formatter = { command = "black" }
-auto-format = true
+auto-format = false
 
+[language.formatter]
+command = "black"
+args = [
+"-", # stdin
+"--quiet",
+"--line-length=79",
+]
 # TYPESCRIPT/JS/REACT/ANYTHING JAVASCRIPT
 [language-server.typescript-language-server]
 command = "typescript-language-server"
