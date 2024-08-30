@@ -19,17 +19,16 @@ rangeVariableTypes = true
 # PYTHON CONFIGURATION
 [[language]]
 name = "python"
-comment-token = "#"
-language-servers = [ "pylsp" ]
-auto-format = false
+language-servers = ["pylsp"]
+auto-format = true
 
-[language.formatter]
-command = "black"
-args = [
-"-", # stdin
-"--quiet",
-"--line-length=79",
-]
+
+# command = "black"
+# args = [
+# "-", # stdin
+# "--quiet",
+# "--line-length=79",
+# ]
 # TYPESCRIPT/JS/REACT/ANYTHING JAVASCRIPT
 [language-server.typescript-language-server]
 command = "typescript-language-server"
