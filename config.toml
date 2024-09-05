@@ -6,7 +6,7 @@ theme = "sonokai"
 # Editor Configuration
 [editor]
 scrolloff = 5
-mouse = true
+mouse = false # has to be false to copy and paste
 middle-click-paste = true
 line-number = "absolute"  # Options: "absolute", "relative"
 cursorline = true
@@ -129,3 +129,6 @@ wrap-at-text-width = false
 [editor.smart-tab]
 enable = true
 supersede-menu = false
+
+[keys.normal]
+C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
