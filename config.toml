@@ -1,7 +1,7 @@
 # Full documentation: https://docs.helix-editor.com/configuration.html
 
 # General Configuration
-theme = "sonokai"
+theme = "nord_light"
 
 # Editor Configuration
 [editor]
@@ -40,9 +40,9 @@ separator = "│"
 
 # Mode Text Configuration
 [editor.statusline.mode]
-normal = "NORMAL"
-insert = "INSERT"
-select = "SELECT"
+normal = "NORMAL MODE"
+insert = "INSERT MODE"
+select = "SELECT MODE"
 
 # Language Server Integration
 [editor.lsp]
@@ -95,14 +95,6 @@ nnbsp = "␣"
 tab = "→"
 tabpad = "·"
 
-# or control each character
-#[editor.whitespace.render]
-#space = "all"
-#tab = "all"
-#nbsp = "none"
-#nnbsp = "none"
-#newline = "none"
-
 # Indent Guides Configuration
 [editor.indent-guides]
 render = true
@@ -115,7 +107,6 @@ layout = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
 
 [editor.gutters.line-numbers]
 min-width = 3
-
 
 # Soft Wrap Configuration
 [editor.soft-wrap]
