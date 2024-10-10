@@ -19,16 +19,17 @@ command = "vscode-eslint-language-server"
 args = ["--stdio"]
 
 # Language-specific configurations
-
 [language-server.gopls]
 command = "gopls"
 config = { "gofumpt" = true, "local" = "goimports", "semanticTokens" = true, "staticcheck" = true, "verboseOutput" = true, "analyses" = { "fieldalignment" = true, "nilness" = true, unusedparams = true, unusedwrite = true, useany = true }, usePlaceholders = true, completeUnimported = true, hints = { "assignVariableType" = true, "compositeLiteralFields" = true, "compositeLiteralTypes" = true, "constantValues" = true, "functionTypeParameters" = true, "parameterNames" = true, "rangeVariableTypes" = true } }
 
 [[language]]
 name = "go"
+scope = "source.go"
 roots = ["go.work", "go.mod"]
-auto-format = true
+auto-format = false
 comment-token = "//"
+indent = { tab-width = 4, unit = "    " }
 language-servers = [ "gopls"]
 formatter = { command = "goimports" }
 
@@ -43,7 +44,7 @@ roots = [".", "pyproject.toml", "pyrightconfig.json"]
 comment-token = "#"
 language-servers = ["pyright", "ruff"]
 indent = { tab-width = 4, unit = "    " }
-auto-format = true
+auto-format = false
 
 [language.formatter]
 command = "black"
@@ -71,18 +72,9 @@ command = "ruff-lsp"
 settings = {args = []}
 
 [[language]]
-name = "mojo"
-scope = "source.mojo"
-injection-regex = "mojo"
-file-types = ["mo"]
-roots = ["mojo.toml", ".git"]
-language-servers = ["pyright"]
-
-
-[[language]]
 name = "javascript"
 scope = "source.js"
-injection-regex = "(js|javascript)"
+injection-regex = "(js|javascript|jsx)"
 file-types = ["js", "mjs", "cjs"]
 shebangs = ["node"]
 roots = ["package.json", "tsconfig.json", "jsconfig.json", ".git"]
@@ -94,35 +86,35 @@ language-servers = ["typescript-language-server", "eslint"]
 [[language]]
 name = "typescript"
 scope = "source.ts"
-injection-regex = "(ts|typescript)"
+injection-regex = "(ts|typescript|tsx)"
 file-types = ["ts", "mts", "cts"]
 roots = ["package.json", "tsconfig.json", ".git"]
 auto-format = false
 indent = { tab-width = 2, unit = "  " }
 formatter = { command = "prettier", args = ["--parser", "typescript"] }
-language-servers = ["typescript-language-server", "tailwindcss-ls"]
+language-servers = ["typescript-language-server", "eslint"]
 
 [[language]]
 name = "svelte"
 scope = "source.svelte"
 injection-regex = "svelte"
-file-types = ["svelte"]
+file-types = ["svelte", "ts"]
 roots = ["package.json", "svelte.config.js", ".git"]
 auto-format = false
 indent = { tab-width = 2, unit = "  " }
 formatter = { command = "prettier", args = ["--parser", "svelte"] }
-language-servers = ["svelte-language-server", "tailwindcss-ls"]
+language-servers = ["svelte-language-server", "svelteserver"]
 
  # CSS CONFIGURATION
 [[language]]
 name = "css"
 scope = "source.css"
 file-types = ["css"]
-language-servers = ["vscode-css-language-server", "tailwindcss-ls"]
+language-servers = ["vscode-css-language-server"]
 formatter = { command = "prettier", args = ["--parser", "css"] }
 auto-format = false
 
-# C/C++
+# C
 [[language]]
 name = "c"
 scope = "source.c"
@@ -141,4 +133,3 @@ name = "debugpy"
 transport = "stdio"
 command = "python"
 args = ["-m", "debugpy.adapter"]
-
