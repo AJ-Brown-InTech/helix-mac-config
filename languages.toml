@@ -1,4 +1,24 @@
-# GOLANG CONFIGURATION
+# LSP downloads list for all languages available to helix
+# https://github.com/helix-editor/helix/wiki/Language-Server-Configurations
+
+# Language server definitions (keep these at the top)
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-css-language-server]
+command = "vscode-css-language-server"
+args = ["--stdio"]
+
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+# Language-specific configurations
 
 [language-server.gopls]
 command = "gopls"
@@ -50,55 +70,75 @@ command = "ruff-lsp"
 [language-server.ruff.config]
 settings = {args = []}
 
-# TYPESCRIPT/JS/REACT/ANYTHING JAVASCRIPT
-[language-server.typescript-language-server]
-command = "typescript-language-server"
-args = ["--stdio"]
-config.hostInfo = "helix"
-
 [[language]]
-name = "typescript"
-injection-regex = "(ts|typescript|tsx)"
-language-id = "typescript"
-language-servers = [ "typescript-language-server" ]
-formatter = { command = "prettier", args = ["--parser", "html"]}
-grammar = "typescript"
-auto-format = false
+name = "mojo"
+scope = "source.mojo"
+injection-regex = "mojo"
+file-types = ["mo"]
+roots = ["mojo.toml", ".git"]
+language-servers = ["pyright"]
+
 
 [[language]]
 name = "javascript"
-injection-regex = "(js|javascript|jsx)"
-language-id = "javascript"
-comment-token = "//"
-language-servers = [ "typescript-language-server" ]
-formatter = { command = "prettier", args = ["--parser", "html"]}
-grammar = "javascript"
+scope = "source.js"
+injection-regex = "(js|javascript)"
+file-types = ["js", "mjs", "cjs"]
+shebangs = ["node"]
+roots = ["package.json", "tsconfig.json", "jsconfig.json", ".git"]
 auto-format = false
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "prettier", args = ["--parser", "babel"] }
+language-servers = ["typescript-language-server", "eslint"]
+
+[[language]]
+name = "typescript"
+scope = "source.ts"
+injection-regex = "(ts|typescript)"
+file-types = ["ts", "mts", "cts"]
+roots = ["package.json", "tsconfig.json", ".git"]
+auto-format = false
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+language-servers = ["typescript-language-server", "tailwindcss-ls"]
 
 [[language]]
 name = "svelte"
-language-id = "svelte"
-injection-regex = "(js|javascript|svelte|ts|)"
-comment-token = "//"
-# language-servers = [ "svelte-language-server" ]
-language-servers = [ { name = "tailwindcss-language-server", except-features = ["hover"] }, "svelteserver", "emmet-ls", "eslint-ls" ]
-formatter = { command = "prettier", args = ["--parser", "html"]}
+scope = "source.svelte"
+injection-regex = "svelte"
+file-types = ["svelte"]
+roots = ["package.json", "svelte.config.js", ".git"]
 auto-format = false
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "prettier", args = ["--parser", "svelte"] }
+language-servers = ["svelte-language-server", "tailwindcss-ls"]
 
-# CSS CONFIGURATION
+ # CSS CONFIGURATION
 [[language]]
 name = "css"
-language-id = "css"
-language-servers = [ "vscode-css-language-server" ]
-formatter = { command = "prettier", args = ["--parser", "html"]}
-grammar = "svelte"
+scope = "source.css"
+file-types = ["css"]
+language-servers = ["vscode-css-language-server", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "css"] }
 auto-format = false
 
-# CSS CONFIGURATION
+# C/C++
 [[language]]
-name = "css"
-language-id = "css"
-language-servers = [ "vscode-json-language-server" ]
-formatter = { command = "prettier", args = ["--parser", "html"]}
-grammar = "json"
+name = "c"
+scope = "source.c"
+file-types = ["c"]
+language-servers = ["ccls"]
+formatter = { command = "clang-format" }
 auto-format = false
+
+[debugger.lldb]
+name = "lldb-vscode"
+transport = "stdio"
+command = "lldb-vscode"
+
+[debugger.python]
+name = "debugpy"
+transport = "stdio"
+command = "python"
+args = ["-m", "debugpy.adapter"]
+
