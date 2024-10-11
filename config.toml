@@ -1,7 +1,7 @@
-# Full documentation: https://docs.helix-editor.com/configuration.html
+## Full documentation: https://docs.helix-editor.com/configuration.html
 
 # General Configuration
-theme = "nord_light"
+theme = "papercolor-dark"
 
 # Editor Configuration
 [editor]
@@ -33,9 +33,9 @@ rulers = [80, 100]
 
 # Statusline Configuration
 [editor.statusline]
-left = ["mode", "spinner", "file-name", "file-type" ]
-center = ["version-control", "total-line-numbers"]
-right = ["diagnostics", "selections", "register", "position" ]
+left = ["mode", "spinner", "file-name", "file-type", "version-control"]
+center = ["total-line-numbers"]
+right = ["diagnostics", "selections", "register", "position"]
 separator = "│"
 
 # Mode Text Configuration
@@ -68,6 +68,7 @@ ignore = false
 git-ignore = true
 git-global = true
 git-exclude = true
+
 
 # Auto Pairs Configuration
 [editor.auto-pairs]
@@ -121,5 +122,8 @@ wrap-at-text-width = false
 enable = true
 supersede-menu = false
 
+# Lazygit Configuration
 [keys.normal]
 C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
+C-o = ":open ~/.config/helix/config.toml" # Maps Ctrl-o to opening of the helix config file
+"ret" = ["open_below", "normal_mode"]
