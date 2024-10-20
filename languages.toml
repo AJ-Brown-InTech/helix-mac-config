@@ -134,10 +134,6 @@ transport = "stdio"
 command = "python"
 args = ["-m", "debugpy.adapter"]
 
-[language-server.eslint]
-args = ["--stdio"]
-command = "vscode-eslint-language-server"
-
 [language-server.eslint.config]
 # format = true
 nodePath = ""
