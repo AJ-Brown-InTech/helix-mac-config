@@ -1,79 +1,92 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-BINARY_HOME="${HOME}/.local/bin"
-DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
 
-echo "Installing Language Servers for Helix Editor:"
+# Function to install npm packages globally
+install_npm_package() {
+    if ! command_exists npm; then
+        echo "npm is not installed. Please install Node.js and npm first."
+        exit 1
+    fi
+    npm install -g "$1"
+}
 
-# Work in a throwaway temporary directory so as not to pollute the file system.
-temporaryDirectory="/tmp/helix-editor-language-server-installer"
-mkdir -p "${temporaryDirectory}"
-pushd "${temporaryDirectory}"
+# Function to install Go packages
+install_go_package() {
+    if ! command_exists go; then
+        echo "Go is not installed. Please install Go first."
+        exit 1
+    fi
+    go install "$1"@latest
+}
 
-# Bash
-echo "  • Bash (bash-language-server)"
-npm i -g bash-language-server
+# Install vscode-html-language-server
+install_npm_package "vscode-langservers-extracted"
 
-# HTML, JSON, JSON schema
-echo "  • HTML, JSON, and JSON schema (vscode-langservers-extracted)"
-npm i -g vscode-langservers-extracted
+# Install vscode-css-language-server
+# (Already installed with vscode-langservers-extracted)
 
-# JavaScript (via TypeScript)
-echo "  • JavaScript (typescript, typescript-language-server)"
-npm install -g typescript typescript-language-server
+# Install tailwindcss-language-server
+install_npm_package "tailwindcss-language-server"
 
-# Svelte 
-echo " svelte (svelte-language-server)"
-npm install -g svelte-language-server
+# Install eslint language server
+install_npm_package "vscode-eslint-language-server"
 
-# install Golang automatic imports 
-echo "Install Golang automatic imports"
-go install golang.org/x/tools/cmd/goimports@latest
+# Install gopls
+install_go_package "golang.org/x/tools/gopls"
 
-# install Golang LSP
-echo "Install Golang LSP"
-go install golang.org/x/tools/gopls@latest
+# Install goimports
+install_go_package "golang.org/x/tools/cmd/goimports"
 
-# install cmake amd cpp lsp (mainly for c)
-echo "Install cmake lsp and cpp compillr"
-pip3 install cmake-language-server
+# Install pyright
+install_npm_package "pyright"
 
-# install python lsp (mainly for c)
-echo "Install python"
-pip3 install python-lsp-server
+# Install ruff-lsp
+pip install ruff-lsp
 
-# install python lsp (mainly for c)
-echo "Install python"
-npm install -g dockerfile-language-server-nodejs
+# Install black (Python formatter)
+pip install black
 
-# install python lsp (mainly for c)
-echo "Install python"
-npm install -g yaml-language-server
-npm install --save-dev --save-exact @biomejs/biome
-npm install -g typescript-language-server typescript
-npm i vscode-json-languageserver
-# Markdown (via ltex-ls. Note: this has excellent features like
+# Install typescript-language-server
+install_npm_package "typescript-language-server"
 
-# spelling and grammar check but is a ~269MB download).
-echo "  • Markdown (ltex-ls)"
-ltexLsVersion=15.2.0
-ltexLsBinaryPath="${BINARY_HOME}/ltex-ls"
-ltexLsBaseFileName="ltex-ls-${ltexLsVersion}"
-ltexLsFileNameWithPlatform="${ltexLsBaseFileName}-linux-x64"
-ltexLsAppDirectory="${DATA_HOME}/${ltexLsBaseFileName}"
-rm "${ltexLsBinaryPath}"
-rm -rf "${ltexLsAppDirectory}"
-wget "https://github.com/valentjn/ltex-ls/releases/download/${ltexLsVersion}/${ltexLsFileNameWithPlatform}.tar.gz"
-gunzip "${ltexLsFileNameWithPlatform}.tar.gz"
-tar xf "${ltexLsFileNameWithPlatform}.tar"
-mv "${ltexLsBaseFileName}" "${DATA_HOME}"
-ln -s "${ltexLsAppDirectory}/bin/ltex-ls" "${ltexLsBinaryPath}" 
+# Install prettier
+install_npm_package "prettier"
 
-# TOML
-cargo install taplo-cli --locked --features lsp
+# Install svelte-language-server
+install_npm_package "svelte-language-server"
 
-# Clean up.
-popd
-rm -rf "${temporaryDirectory}"
+# Install ccls (C language server)
+if command_exists apt-get; then
+    sudo apt-get update && sudo apt-get install -y ccls
+elif command_exists brew; then
+    brew install ccls
+else
+    echo "Please install ccls manually for your system"
+fi
 
-echo "Done."
+# Install clang-format
+if command_exists apt-get; then
+    sudo apt-get update && sudo apt-get install -y clang-format
+elif command_exists brew; then
+    brew install clang-format
+else
+    echo "Please install clang-format manually for your system"
+fi
+
+# Install lldb-vscode
+if command_exists apt-get; then
+    sudo apt-get update && sudo apt-get install -y lldb
+elif command_exists brew; then
+    brew install llvm
+else
+    echo "Please install lldb manually for your system"
+fi
+
+# Install debugpy
+pip install debugpy
+
+echo "Installation complete. Please ensure that all installed binaries are in your PATH."
