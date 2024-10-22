@@ -17,11 +17,11 @@ auto-save = true
 bufferline = "always"
 indent-heuristic = "hybrid"
 jump-label-alphabet = "abcdefghijklmnopqrstuvwxyz"
-idle-timeout = 400
+idle-timeout = 250
 preview-completion-insert = true
-completion-trigger-len = 1
+completion-trigger-len = 0
 completion-replace = false
-completion-timeout = 250
+completion-timeout = 500
 auto-info = true
 true-color = true
 undercurl = true
@@ -62,9 +62,9 @@ select = "underline"
 
 # File Picker Configuration
 [editor.file-picker]
-hidden = false
+hidden = true
 parents = true
-ignore = false
+ignore = true
 git-ignore = true
 git-global = true
 git-exclude = true
@@ -88,6 +88,14 @@ wrap-around = true
 [editor.whitespace]
 render = "all"
 
+# or control each character
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+nbsp = "none"
+nnbsp = "none"
+newline = "none"
+
 [editor.whitespace.characters]
 newline = "⏎"
 space = "·"
@@ -99,7 +107,7 @@ tabpad = "·"
 # Indent Guides Configuration
 [editor.indent-guides]
 render = true
-character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+character = "┊" # Some characters that work well: "▏", "┆", "┊", "⸽"
 skip-levels = 1
 
 # Gutters Configuration
