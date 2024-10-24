@@ -97,13 +97,14 @@ language-servers = ["typescript-language-server", "eslint"]
 [[language]]
 name = "svelte"
 scope = "source.svelte"
-injection-regex = "svelte"
-file-types = ["svelte", "ts"]
-roots = ["package.json", "svelte.config.js", ".git"]
+injection-regex = "(svelte|.server.ts)"
+file-types = ["svelte", "+page.server.ts"]
+roots = ["package.json", "svelte.config.js", ".git", ".svelte-kit"]
 auto-format = false
 indent = { tab-width = 2, unit = "  " }
 formatter = { command = "prettier", args = ["--parser", "svelte"] }
-language-servers = ["svelte-language-server", "svelteserver"]
+language-servers = [ { name = "tailwindcss-ls", except-features = ["hover"] }, "svelteserver", "emmet-ls", "eslint-ls" , "svelte-language-server", "eslint" ]
+# language-servers = ["svelte-language-server", "svelteserver", "eslint"]
 
  # CSS CONFIGURATION
 [[language]]
@@ -148,4 +149,4 @@ codeAction = { disableRuleComment = { enable = true, location = "separateLine" }
 # codeActionsOnSave = { mode = "all" }
 experimental = {}
 problems = { shortenToSingleLine = false }
-# workingDirectory = { mode = "auto" }
+workingDirectory = { mode = "auto" }
