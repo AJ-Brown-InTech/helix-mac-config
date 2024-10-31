@@ -150,3 +150,15 @@ codeAction = { disableRuleComment = { enable = true, location = "separateLine" }
 experimental = {}
 problems = { shortenToSingleLine = false }
 workingDirectory = { mode = "auto" }
+
+[[language]]
+name = "react-native"
+scope = "source.js"
+injection-regex = "(js|javascript|jsx|tsx)"
+file-types = ["js", "mjs", "cjs", "jsx", "ts", "tsx"]
+shebangs = ["node"]
+roots = ["package.json", "tsconfig.json", "jsconfig.json", ".git"]
+auto-format = false
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "prettier", args = ["--parser", "babel"] }
+language-servers = ["typescript-language-server", "eslint"]
