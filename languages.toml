@@ -75,7 +75,7 @@ settings = {args = []}
 name = "javascript"
 scope = "source.js"
 injection-regex = "(js|javascript|jsx)"
-file-types = ["js", "mjs", "cjs"]
+file-types = ["js", "mjs", "cjs", "jsx"]
 shebangs = ["node"]
 roots = ["package.json", "tsconfig.json", "jsconfig.json", ".git"]
 auto-format = false
@@ -87,7 +87,7 @@ language-servers = ["typescript-language-server", "eslint"]
 name = "typescript"
 scope = "source.ts"
 injection-regex = "(ts|typescript|tsx)"
-file-types = ["ts", "mts", "cts"]
+file-types = ["ts", "mts", "cts", "tsx", "jsx"]
 roots = ["package.json", "tsconfig.json", ".git"]
 auto-format = false
 indent = { tab-width = 2, unit = "  " }
@@ -115,133 +115,14 @@ language-servers = ["vscode-css-language-server"]
 formatter = { command = "prettier", args = ["--parser", "css"] }
 auto-format = false
 
-[[language]]
-name = "react-native"
-scope = "source.js"
-injection-regex = "(js|javascript|jsx|tsx)"
-file-types = ["js", "mjs", "cjs", "jsx", "ts", "tsx"]
-shebangs = ["node"]
-roots = ["package.json", "tsconfig.json", "jsconfig.json", ".git"]
-auto-format = false
-indent = { tab-width = 2, unit = "  " }
-formatter = { command = "prettier", args = ["--parser", "babel"] }
-language-servers = ["typescript-language-server", "eslint"]
-
-
-[[language]]
-name = "toml"
-scope = "source.toml"
-injection-regex = "toml"
-file-types = ["toml", { glob = "pdm.lock" }, { glob = "poetry.lock" }, { glob = "Cargo.lock" }, { glob = "uv.lock" }]
-comment-token = "#"
-language-servers = [ "taplo" ]
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "toml"
-source = { git = "https://github.com/ikatyang/tree-sitter-toml", rev = "7cff70bbcbbc62001b465603ca1ea88edd668704" }
-
-[[language]]
-name = "fish"
-scope = "source.fish"
-injection-regex = "fish"
-file-types = ["fish"]
-shebangs = ["fish"]
-comment-token = "#"
-language-servers = ["fish-lsp"]
-indent = { tab-width = 4, unit = "    " }
-auto-format = true
-formatter = { command = "fish_indent" }
-
-[[grammar]]
-name = "fish"
-source = { git = "https://github.com/ram02z/tree-sitter-fish", rev = "a78aef9abc395c600c38a037ac779afc7e3cc9e0" }
-
-[[language]]
-name = "json"
-scope = "source.json"
-injection-regex = "json"
-file-types = [
-  "json",
-  "arb",
-  "ipynb",
-  "geojson",
-  "gltf",
-  "webmanifest",
-  { glob = "flake.lock" },
-  { glob = ".babelrc" },
-  { glob = ".bowerrc" },
-  { glob = ".jscrc" },
-  "js.map",
-  "ts.map",
-  "css.map",
-  { glob = ".jslintrc" },
-  "jsonl",
-  "jsonld",
-  { glob = ".vuerc" },
-  { glob = "composer.lock" },
-  { glob = ".watchmanconfig" },
-  "avsc",
-  "ldtk",
-  "ldtkl",
-  { glob = ".swift-format" },
-  "sublime-build",
-  "sublime-color-scheme",
-  "sublime-commands",
-  "sublime-completions",
-  "sublime-keymap",
-  "sublime-macro",
-  "sublime-menu",
-  "sublime-mousemap",
-  "sublime-project",
-  "sublime-settings",
-  "sublime-theme",
-  "sublime-workspace"
-]
-language-servers = [ "vscode-json-language-server" ]
-auto-format = true
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "json"
-source = { git = "https://github.com/tree-sitter/tree-sitter-json", rev = "73076754005a460947cafe8e03a8cf5fa4fa2938" }
-
-[[language]]
-name = "jsonc"
-scope = "source.json"
-injection-regex = "jsonc"
-file-types = ["jsonc", { glob = "tsconfig.json" }, { glob = "bun.lock" }]
-comment-token = "//"
-block-comment-tokens = { start = "/*", end = "*/" }
-grammar = "json"
-language-servers = [ "vscode-json-language-server" ]
-auto-format = true
-indent = { tab-width = 2, unit = "  " }
-
-[[language]]
-name = "json5"
-scope = "source.json5"
-injection-regex = "json5"
-file-types = ["json5"]
-language-servers = []
-comment-token = "//"
-indent = { tab-width = 4, unit = "    " }
-# https://json5.org
-
-[[grammar]]
-name = "json5"
-source = { git = "https://github.com/Joakker/tree-sitter-json5", rev = "c23f7a9b1ee7d45f516496b1e0e4be067264fa0d" }
-
+# C
 [[language]]
 name = "c"
 scope = "source.c"
-injection-regex = "c"
-file-types = ["c"] # TODO: ["h"]
-comment-token = "//"
-block-comment-tokens = { start = "/*", end = "*/" }
-language-servers = [ "clangd", "ccls" ]
-indent = { tab-width = 2, unit = "  " }
-
+file-types = ["c"]
+language-servers = ["ccls"]
+formatter = { command = "clang-format" }
+auto-format = false
 
 [debugger.lldb]
 name = "lldb-vscode"
@@ -269,3 +150,15 @@ codeAction = { disableRuleComment = { enable = true, location = "separateLine" }
 experimental = {}
 problems = { shortenToSingleLine = false }
 workingDirectory = { mode = "auto" }
+
+[[language]]
+name = "react-native"
+scope = "source.js"
+injection-regex = "(js|javascript|jsx|tsx)"
+file-types = ["js", "mjs", "cjs", "jsx", "ts", "tsx"]
+shebangs = ["node"]
+roots = ["package.json", "tsconfig.json", "jsconfig.json", ".git"]
+auto-format = false
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "prettier", args = ["--parser", "babel"] }
+language-servers = ["typescript-language-server", "eslint"]
