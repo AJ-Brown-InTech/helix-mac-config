@@ -23,70 +23,84 @@ install_go_package() {
     go install "$1"@latest
 }
 
-# Install vscode-html-language-server
+# Install Fisher (Fish package manager)
+curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+
+# Install Fish plugins
+fisher install jorgebucaran/nvm.fish
+fisher install jethrokuan/z
+fisher install PatrickF1/fzf.fish
+fisher install franciscolourenco/done
+fisher install jorgebucaran/autopair.fish
+
+# Install apt-fast for faster package downloads
+if command_exists apt-get; then
+    sudo add-apt-repository -y ppa:apt-fast/stable
+    sudo apt-get update && sudo apt-get install -y apt-fast
+fi
+
+# Install FZF (Fuzzy Finder)
+if command_exists apt-get; then
+    sudo apt-get install -y fzf
+elif command_exists brew; then
+    brew install fzf
+else
+    echo "Please install fzf manually."
+fi
+
+# Install exa (Better ls replacement)
+if command_exists apt-get; then
+    sudo apt-get install -y exa
+elif command_exists brew; then
+    brew install exa
+else
+    echo "Please install exa manually."
+fi
+
+# Install Starship prompt
+curl -sS https://starship.rs/install.sh | sh
+
+echo 'starship init fish | source' >> ~/.config/fish/config.fish
+
+# Install Git Delta (Better Git Diffs)
+if command_exists apt-get; then
+    sudo apt-get install -y git-delta
+elif command_exists brew; then
+    brew install git-delta
+else
+    echo "Please install git-delta manually."
+fi
+
+# Install various language servers
 install_npm_package "vscode-langservers-extracted"
-
-# Install vscode-css-language-server
-# (Already installed with vscode-langservers-extracted)
-
-# Install tailwindcss-language-server
 install_npm_package "tailwindcss-language-server"
-
-# Install eslint language server
 install_npm_package "vscode-eslint-language-server"
-
-# Install gopls
-install_go_package "golang.org/x/tools/gopls"
-
-# Install goimports
-install_go_package "golang.org/x/tools/cmd/goimports"
-
-# Install pyright
 install_npm_package "pyright"
-
-# Install ruff-lsp
-pip install ruff-lsp
-
-# Install black (Python formatter)
-pip install black
-
-# Install typescript-language-server
 install_npm_package "typescript-language-server"
-
-# Install prettier
 install_npm_package "prettier"
-
-# Install svelte-language-server
 install_npm_package "svelte-language-server"
 
-# Install ccls (C language server)
+# Install gopls & goimports
+install_go_package "golang.org/x/tools/gopls"
+install_go_package "golang.org/x/tools/cmd/goimports"
+
+# Install Python tools
+pip install ruff-lsp black debugpy
+
+# Install C/C++ language servers & formatters
 if command_exists apt-get; then
-    sudo apt-get update && sudo apt-get install -y ccls
+    sudo apt-get install -y ccls clang-format lldb
 elif command_exists brew; then
-    brew install ccls
+    brew install ccls clang-format llvm
 else
-    echo "Please install ccls manually for your system"
+    echo "Please install C/C++ tools manually."
 fi
 
-# Install clang-format
-if command_exists apt-get; then
-    sudo apt-get update && sudo apt-get install -y clang-format
-elif command_exists brew; then
-    brew install clang-format
-else
-    echo "Please install clang-format manually for your system"
-fi
+# Optimize system swappiness for better performance
+echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
 
-# Install lldb-vscode
-if command_exists apt-get; then
-    sudo apt-get update && sudo apt-get install -y lldb
-elif command_exists brew; then
-    brew install llvm
-else
-    echo "Please install lldb manually for your system"
-fi
-
-# Install debugpy
-pip install debugpy
+# Add cron job to auto-update system weekly
+(crontab -l 2>/dev/null; echo "0 0 * * 7 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y") | crontab -
 
 echo "Installation complete. Please ensure that all installed binaries are in your PATH."
