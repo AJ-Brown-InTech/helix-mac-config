@@ -32,16 +32,18 @@ rulers = [80, 80]
 
 # Statusline Configuration
 [editor.statusline]
-left = ["mode", "spinner", "file-name", "file-type", "version-control"]
-center = ["total-line-numbers"]
-right = ["diagnostics", "selections", "register", "position"]
-separator = "│"
+left = ["mode", "spinner", "file-name", "file-type", "version-control"]  # Key indicators on the left
+center = ["total-line-numbers"]  # Line number visibility centered for clarity
+right = ["diagnostics", "selections", "register", "position"]  # Essential info on the right
+separator = " │ "  # Clean visual separation between sections
+
 
 # Mode Text Configuration
 [editor.statusline.mode]
-normal = "NORMAL MODE"
-insert = "INSERT MODE"
-select = "SELECT MODE"
+normal = "😈 NORMAL MODE"
+insert = "🔞 INSERT MODE"
+select = "🍑 SELECT MODE"
+
 
 # Language Server Integration
 [editor.lsp]
@@ -98,7 +100,7 @@ tabpad = "·"
 # Indent Guides Configuration
 [editor.indent-guides]
 render = true
-character = "┊" # Some characters that work well: "▏", "┆", "┊", "⸽"
+character =  "┆" # Some characters that work well: "▏", "┆", "┊", "⸽"
 skip-levels = 1
 
 # Gutters Configuration
@@ -119,12 +121,13 @@ wrap-at-text-width = false
 # Smart Tab Configuration
 [editor.smart-tab]
 enable = true
-supersede-menu = false
+supersede-menu = true
 
 # Lazygit Configuration
 [keys.normal]
 C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
 C-o = ":open ~/.config/helix/config.toml" # Maps Ctrl-o to opening of the helix config file
-"ret" = ["open_below", "normal_mode"]
-"C-w" = ":set whitespace.render all"
-"C-W" = ":set whitespace.render none"
+"ret" = [":w!","open_below", "normal_mode"]
+"C-e" = ":set whitespace.render all"
+"C-E" = ":set whitespace.render none"
+C-r = [":new", ":insert-output ranger", ":buffer-close!", ":redraw"]
