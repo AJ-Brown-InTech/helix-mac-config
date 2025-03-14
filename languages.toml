@@ -1,298 +1,136 @@
-# LSP downloads list for all languages available to helix
-# https://github.com/helix-editor/helix/wiki/Language-Server-Configurations
+## https://github.com/helix-editor/helix/wiki/Language-Server-Configurations
 
 # Language server definitions (keep these at the top)
 [language-server.vscode-html-language-server]
-command = "vscode-html-language-server"
-args = ["--stdio"]
+command="vscode-html-language-server"
+args=["--stdio"]
 
 [language-server.vscode-css-language-server]
-command = "vscode-css-language-server"
-args = ["--stdio"]
+command="vscode-css-language-server"
+args=["--stdio"]
 
 [language-server.tailwindcss-ls]
-command = "tailwindcss-language-server"
-args = ["--stdio"]
+command="tailwindcss-language-server"
+args=["--stdio"]
 
 [language-server.eslint]
-command = "vscode-eslint-language-server"
-args = ["--stdio"]
+command="vscode-eslint-language-server"
+args=["--stdio"]
 
-# Language-specific configurations
 [language-server.gopls]
-command = "gopls"
-config = { "gofumpt" = true, "local" = "goimports", "semanticTokens" = true, "staticcheck" = true, "verboseOutput" = true, "analyses" = { "fieldalignment" = true, "nilness" = true, unusedparams = true, unusedwrite = true, useany = true }, usePlaceholders = true, completeUnimported = true, hints = { "assignVariableType" = true, "compositeLiteralFields" = true, "compositeLiteralTypes" = true, "constantValues" = true, "functionTypeParameters" = true, "parameterNames" = true, "rangeVariableTypes" = true } }
+command="gopls"
+config={"gofumpt"=true,"local"="goimports","semanticTokens"=true,"staticcheck"=true,"verboseOutput"=true,"analyses"={"fieldalignment"=true,"nilness"=true,unusedparams=true,unusedwrite=true,useany=true},usePlaceholders=true,completeUnimported=true,hints={"assignVariableType"=true,"compositeLiteralFields"=true,"compositeLiteralTypes"=true,"constantValues"=true,"functionTypeParameters"=true,"parameterNames"=true,"rangeVariableTypes"=true}}
 
 [[language]]
-name = "go"
-scope = "source.go"
-roots = ["go.work", "go.mod"]
-auto-format = false
-comment-token = "//"
-indent = { tab-width = 4, unit = "    " }
-language-servers = [ "gopls"]
-formatter = { command = "goimports" }
-
-# PYTHON CONFIGURATION
-[[language]]
-name = "python"
-scope = "source.python"
-injection-regex = "python"
-file-types = ["py","pyi","py3","pyw",".pythonstartup",".pythonrc"]
-shebangs = ["python"]
-roots = [".", "pyproject.toml", "pyrightconfig.json"]
-comment-token = "#"
-language-servers = ["pyright", "ruff"]
-indent = { tab-width = 4, unit = "    " }
-auto-format = false
-
-[language.formatter]
-command = "black"
-args = [
-  "-",
-  "--quiet",
-  "--line-length=88"
-]
-
-[language-server.pyright]
-command = "pyright-langserver"
-args = ["--stdio"]
-
-[language-server.pyright.config]
-reportMissingTypeStubs = false
-
-[language-server.pyright.config.python.analysis]
-typeCheckingMode = "basic"
-autoImportCompletions = true
-
-[language-server.ruff]
-command = "ruff-lsp"
-
-[language-server.ruff.config]
-settings = {args = []}
+name="go"
+scope="source.go"
+roots=["go.work","go.mod"]
+auto-format=false
+comment-token="//"
+language-servers=["gopls"]
+formatter={command="goimports"}
 
 [[language]]
-name = "javascript"
-scope = "source.js"
-injection-regex = "(js|javascript|jsx)"
-file-types = ["js", "mjs", "cjs", "jsx"]
-shebangs = ["node"]
-roots = ["package.json", "tsconfig.json", "jsconfig.json", ".git"]
-auto-format = false
-indent = { tab-width = 2, unit = "  " }
-formatter = { command = "prettier", args = ["--parser", "babel"] }
-language-servers = ["typescript-language-server", "eslint"]
+name="javascript"
+scope="source.js"
+injection-regex="(js|javascript|jsx)"
+file-types=["js","mjs","cjs","jsx"]
+shebangs=["node"]
+roots=["package.json","tsconfig.json","jsconfig.json",".git"]
+auto-format=false
+formatter={command="prettier",args=["--parser","babel"]}
+language-servers=["typescript-language-server","eslint"]
 
 [[language]]
-name = "typescript"
-scope = "source.ts"
-injection-regex = "(ts|typescript|tsx)"
-file-types = ["ts", "mts", "cts", "tsx", "jsx"]
-roots = ["package.json", "tsconfig.json", ".git"]
-auto-format = false
-indent = { tab-width = 2, unit = "  " }
-formatter = { command = "prettier", args = ["--parser", "typescript"] }
-language-servers = ["typescript-language-server", "eslint"]
+name="typescript"
+scope="source.ts"
+injection-regex="(ts|typescript|tsx)"
+file-types=["ts","mts","cts","tsx"]
+roots=["package.json","tsconfig.json",".git"]
+auto-format=false
+formatter={command="prettier",args=["--parser","typescript"]}
+language-servers=["typescript-language-server","eslint"]
 
 [[language]]
-name = "svelte"
-scope = "source.svelte"
-injection-regex = "(svelte|.server.ts)"
-file-types = ["svelte", "+page.server.ts"]
-roots = ["package.json", "svelte.config.js", ".git", ".svelte-kit"]
-auto-format = false
-indent = { tab-width = 2, unit = "  " }
-formatter = { command = "prettier", args = ["--parser", "svelte"] }
-language-servers = [ { name = "tailwindcss-ls", except-features = ["hover"] }, "svelteserver", "emmet-ls", "eslint-ls" , "svelte-language-server", "eslint" ]
-# language-servers = ["svelte-language-server", "svelteserver", "eslint"]
-
- # CSS CONFIGURATION
-[[language]]
-name = "css"
-scope = "source.css"
-file-types = ["css"]
-language-servers = ["vscode-css-language-server"]
-formatter = { command = "prettier", args = ["--parser", "css"] }
-auto-format = false
+name="react-native"
+scope="source.js"
+injection-regex="(js|javascript|jsx|tsx)"
+file-types=["js","mjs","cjs","jsx","ts","tsx"]
+shebangs=["node"]
+roots=["package.json","tsconfig.json","jsconfig.json",".git"]
+auto-format=false
+formatter={command="prettier",args=["--parser","babel"]}
+language-servers=["typescript-language-server","eslint"]
 
 [[language]]
-name = "toml"
-scope = "source.toml"
-injection-regex = "toml"
-file-types = ["toml", { glob = "pdm.lock" }, { glob = "poetry.lock" }, { glob = "Cargo.lock" }, { glob = "uv.lock" }]
-comment-token = "#"
-language-servers = [ "taplo" ]
-indent = { tab-width = 2, unit = "  " }
+name="svelte"
+scope="source.svelte"
+injection-regex="(svelte|.server.ts)"
+file-types=["svelte","+page.server.ts","ts","js","server.ts"]
+roots=["package.json","svelte.config.js",".git",".svelte-kit"]
+auto-format=false
+formatter={command="prettier",args=["--parser","svelte"]}
+language-servers=[{name="tailwindcss-ls",except-features=["hover"]},"svelteserver","emmet-ls","eslint-ls","svelte-language-server","eslint"]
+
+[[language]]
+name="css"
+scope="source.css"
+file-types=["css","scss"]
+language-servers=["vscode-css-language-server"]
+formatter={command="prettier",args=["--parser","css"]}
+auto-format=false
+
+[[language]]
+name="toml"
+scope="source.toml"
+injection-regex="toml"
+file-types=["toml",{glob="pdm.lock"},{glob="poetry.lock"},{glob="Cargo.lock"},{glob="uv.lock"}]
+comment-token="#"
+language-servers=["taplo"]
 
 [[grammar]]
-name = "toml"
-source = { git = "https://github.com/ikatyang/tree-sitter-toml", rev = "7cff70bbcbbc62001b465603ca1ea88edd668704" }
+name="toml"
+source={git="https://github.com/ikatyang/tree-sitter-toml",rev="7cff70bbcbbc62001b465603ca1ea88edd668704"}
 
 [[language]]
-name = "fish"
-scope = "source.fish"
-injection-regex = "fish"
-file-types = ["fish"]
-shebangs = ["fish"]
-comment-token = "#"
-language-servers = ["fish-lsp"]
-indent = { tab-width = 4, unit = "    " }
-auto-format = true
-formatter = { command = "fish_indent" }
+name="fish"
+scope="source.fish"
+injection-regex="fish"
+file-types=["fish"]
+shebangs=["fish"]
+comment-token="#"
+language-servers=["fish-lsp"]
+auto-format=true
+formatter={command="fish_indent"}
 
 [[grammar]]
-name = "fish"
-source = { git = "https://github.com/ram02z/tree-sitter-fish", rev = "a78aef9abc395c600c38a037ac779afc7e3cc9e0" }
+name="fish"
+source={git="https://github.com/ram02z/tree-sitter-fish",rev="a78aef9abc395c600c38a037ac779afc7e3cc9e0"}
 
 [[language]]
-name = "json"
-scope = "source.json"
-injection-regex = "json"
-file-types = [
-  "json",
-  "arb",
-  "ipynb",
-  "geojson",
-  "gltf",
-  "webmanifest",
-  { glob = "flake.lock" },
-  { glob = ".babelrc" },
-  { glob = ".bowerrc" },
-  { glob = ".jscrc" },
-  "js.map",
-  "ts.map",
-  "css.map",
-  { glob = ".jslintrc" },
-  "jsonl",
-  "jsonld",
-  { glob = ".vuerc" },
-  { glob = "composer.lock" },
-  { glob = ".watchmanconfig" },
-  "avsc",
-  "ldtk",
-  "ldtkl",
-  { glob = ".swift-format" },
-  "sublime-build",
-  "sublime-color-scheme",
-  "sublime-commands",
-  "sublime-completions",
-  "sublime-keymap",
-  "sublime-macro",
-  "sublime-menu",
-  "sublime-mousemap",
-  "sublime-project",
-  "sublime-settings",
-  "sublime-theme",
-  "sublime-workspace"
-]
-
-language-servers = [ "vscode-json-language-server" ]
-auto-format = true
-indent = { tab-width = 2, unit = "  " }
+name="json"
+scope="source.json"
+injection-regex="json"
+file-types=["json","arb","ipynb","geojson","gltf","webmanifest",{glob="flake.lock"},{glob=".babelrc"},{glob=".bowerrc"},{glob=".jscrc"},"js.map","ts.map","css.map",{glob=".jslintrc"},"jsonl","jsonld",{glob=".vuerc"},{glob="composer.lock"},{glob=".watchmanconfig"},"avsc","ldtk","ldtkl",{glob=".swift-format"},"sublime-build","sublime-color-scheme","sublime-commands","sublime-completions","sublime-keymap","sublime-macro","sublime-menu","sublime-mousemap","sublime-project","sublime-settings","sublime-theme","sublime-workspace"]
+language-servers=["vscode-json-language-server"]
+auto-format=true
 
 [[grammar]]
-name = "json"
-source = { git = "https://github.com/tree-sitter/tree-sitter-json", rev = "73076754005a460947cafe8e03a8cf5fa4fa2938" }
-
-[[language]]
-name = "jsonc"
-scope = "source.json"
-injection-regex = "jsonc"
-file-types = ["jsonc", { glob = "tsconfig.json" }, { glob = "bun.lock" }]
-comment-token = "//"
-block-comment-tokens = { start = "/*", end = "*/" }
-grammar = "json"
-language-servers = [ "vscode-json-language-server" ]
-auto-format = true
-indent = { tab-width = 2, unit = "  " }
-
-[[language]]
-name = "json5"
-scope = "source.json5"
-injection-regex = "json5"
-file-types = ["json5"]
-language-servers = []
-comment-token = "//"
-indent = { tab-width = 4, unit = "    " }
-# https://json5.org
-
-[[grammar]]
-name = "json5"
-source = { git = "https://github.com/Joakker/tree-sitter-json5", rev = "c23f7a9b1ee7d45f516496b1e0e4be067264fa0d" }
-
-[[language]]
-name = "c"
-scope = "source.c"
-injection-regex = "c"
-file-types = ["c"] # TODO: ["h"]
-comment-token = "//"
-block-comment-tokens = { start = "/*", end = "*/" }
-language-servers = [ "clangd", "ccls" ]
-indent = { tab-width = 2, unit = "  " }
-
+name="json"
+source={git="https://github.com/tree-sitter/tree-sitter-json",rev="73076754005a460947cafe8e03a8cf5fa4fa2938"}
 
 [debugger.lldb]
-name = "lldb-vscode"
-transport = "stdio"
-command = "lldb-vscode"
-
-[debugger.python]
-name = "debugpy"
-transport = "stdio"
-command = "python"
-args = ["-m", "debugpy.adapter"]
+name="lldb-vscode"
+transport="stdio"
+command="lldb-vscode"
 
 [language-server.eslint.config]
-# format = true
-nodePath = ""
-# onIgnoredFiles = "off"
-# packageManager = "yarn"
-quiet = false
-rulesCustomizations = []
-run = "onType"
-# useESLintClass = false
-validate = "on"
-codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
-# codeActionsOnSave = { mode = "all" }
-experimental = {}
-problems = { shortenToSingleLine = false }
-workingDirectory = { mode = "auto" }
-
-[debugger.lldb]
-name = "lldb-vscode"
-transport = "stdio"
-command = "lldb-vscode"
-
-[debugger.python]
-name = "debugpy"
-transport = "stdio"
-command = "python"
-args = ["-m", "debugpy.adapter"]
-
-[language-server.eslint.config]
-# format = true
-nodePath = ""
-# onIgnoredFiles = "off"
-# packageManager = "yarn"
-quiet = false
-rulesCustomizations = []
-run = "onType"
-# useESLintClass = false
-validate = "on"
-codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
-# codeActionsOnSave = { mode = "all" }
-experimental = {}
-problems = { shortenToSingleLine = false }
-workingDirectory = { mode = "auto" }
-
-[[language]]
-name = "react-native"
-scope = "source.js"
-injection-regex = "(js|javascript|jsx|tsx)"
-file-types = ["js", "mjs", "cjs", "jsx", "ts", "tsx"]
-shebangs = ["node"]
-roots = ["package.json", "tsconfig.json", "jsconfig.json", ".git"]
-auto-format = false
-indent = { tab-width = 2, unit = "  " }
-formatter = { command = "prettier", args = ["--parser", "babel"] }
-language-servers = ["typescript-language-server", "eslint"]
+nodePath=""
+onIgnoredFiles="off"
+quiet=true
+run="onType"
+validate="on"
+codeAction={disableRuleComment={enable=true,location="separateLine"},showDocumentation={enable=true}}
+experimental={}
+problems={shortenToSingleLine=false}
+workingDirectory={mode="auto"}
