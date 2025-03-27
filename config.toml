@@ -1,7 +1,7 @@
 ## Full documentation: https://docs.helix-editor.com/configuration.html
 
 # General Configuration
-theme = "monokai"
+theme = "molokai"
 
 # Editor Configuration
 [editor]
@@ -44,7 +44,6 @@ normal = "😈 NORMAL MODE"
 insert = "🔞 INSERT MODE"
 select = "🍑 SELECT MODE"
 
-
 # Language Server Integration
 [editor.lsp]
 enable = true
@@ -69,7 +68,6 @@ ignore = true
 git-ignore = true
 git-global = true
 git-exclude = true
-
 
 # Auto Pairs Configuration
 [editor.auto-pairs]
@@ -127,7 +125,5 @@ supersede-menu = true
 [keys.normal]
 C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
 C-o = ":open ~/.config/helix/config.toml" # Maps Ctrl-o to opening of the helix config file
-"ret" = [":w!","open_below", "normal_mode"]
-"C-e" = ":set whitespace.render all"
-"C-E" = ":set whitespace.render none"
+ret = [":w!","open_below", "normal_mode"]
 C-r = [":new", ":insert-output ranger", ":buffer-close!", ":redraw"]
