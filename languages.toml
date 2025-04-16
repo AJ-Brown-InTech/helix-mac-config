@@ -14,22 +14,38 @@ config = { userLanguages = { astro = "html", "*.astro" = "html" }}
 command = "emmet-language-server"
 args = ["--stdio"]
 
+# ESLint configuration
+# Note: The ESLint language server is configured to use the ESLint CLI engine.
+# This means it will use the ESLint configuration from your project.
+# Ensure you have ESLint installed in your project.
+# You can install it using npm or yarn:
+# npm install eslint --save-dev
+# yarn add eslint --dev
 [language-server.eslint-ls]
 command = "vscode-eslint-language-server"
 args = ["--stdio"]
 
 [language-server.eslint-ls.config]
 validate = "on"
-experimental = { useFlatConfig = false }
-rulesCustomizations = []
-run = "onType"
-problems = { shortenToSingleLine = false }
-nodePath = ""
 
-[language-server.eslint-ls.config.codeAction]
-disableRuleComment = { enable = true, location = "separateLine" }
-showDocumentation = { enable = true }
-# onSave = { enable = true, mode = "fixAll" }
+[language-server.eslint-ls.config.experimental]
+useFlatConfig = false
+
+# Empty array for rule customizations
+language-server.eslint-ls.config.rulesCustomizations = []
+
+[language-server.eslint-ls.config.problems]
+shortenToSingleLine = false
+
+language-server.eslint-ls.config.nodePath = ""
+
+[language-server.eslint-ls.config.codeAction.disableRuleComment]
+enable = true
+location = "separateLine"
+
+[language-server.eslint-ls.config.codeAction.showDocumentation]
+enable = true
+
 [language-server.eslint-ls.config.codeAction.onSave]
 enable = true
 mode = "fixAll"
@@ -37,16 +53,25 @@ mode = "fixAll"
 [language-server.eslint-ls.config.workingDirectory]
 mode = "location"
 
-# LANGUAGE SPECIFIC
+[language-server.eslint-ls.config.run]
+# Note: Based on your original, you likely meant:
+run = "onType"
+
+# GO
 [[language]]
 name = "go"
 formatter = { command = "goimports" }
+debugger = { command = "dlv", args = ["dap"] }
+language-servers = ["gopls"]
 
 [language-server.gopls]
 command = "gopls"
-args = ["-logfile=/tmp/gopls.log",  "serve"]
-[language-server.gopls.config]
-"ui.diagnostic.staticcheck" = true
+args = ["-logfile=/tmp/gopls.log", "serve"]
+
+# [language-server.gopls.config]
+# "ui.diagnostic.staticcheck" = true
+[language-server.gopls.config.ui.diagnostic]
+staticcheck = true
 
 [language-server.gopls.config.hints]
 assignVariableTypes = true
@@ -55,6 +80,7 @@ functionTypeParameters = true
 parameterNames = true
 rangeVariableTypes = true
 
+# SVELTE
 [[language]]
 name = "svelte"
 scope = "source.svelte"
@@ -62,97 +88,48 @@ injection-regex = "(svelte|.server.ts)"
 file-types = ["svelte", "+page.server.ts", "+layout.server.ts", "+endpoint.ts"]
 roots = ["package.json", "svelte.config.js", ".git", ".svelte-kit"]
 formatter = { command = "prettier", args = ["--parser", "svelte"] }
-language-servers = [ { name = "tailwindcss-ls", except-features = ["hover"] }, "svelteserver", "emmet-ls", "eslint-ls" , "svelte-language-server", "eslint" ]
-
-[language-server.svelteserver]
-command = "svelteserver"
-args = ["--stdio"]
-
-[language-server.svelteserver.config]
-"ui.diagnostic.staticcheck" = true
-
-[language-server.svelteserver.config.hints]
-assignVariableTypes = true
-constantValues = true
-functionTypeParameters = true
-parameterNames = true
-rangeVariableTypes = true
+language-servers = ["tailwindcss-ls", "svelte-language-server", "emmet-ls", "eslint-ls"]
 
 [language-server.svelte-language-server]
 command = "svelte-language-server"
 args = ["--stdio"]
 
-[language-server.svelte-language-server.config]
-"ui.diagnostic.staticcheck" = true
-
-[language-server.svelte-language-server.config.hints]
-assignVariableTypes = true
-constantValues = true
-functionTypeParameters = true
-parameterNames = true
-rangeVariableTypes = true
-
+# TYPESCRIPT & REACT (TSX)
 [[language]]
 name = "typescript"
 file-types = ["ts", "tsx"]
-language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
-formatter = { command = "prettier" }
+formatter = { command = "prettier", args = ["--stdin-filepath", "file.tsx"] }
+language-servers = ["tailwindcss-ls", "typescript-language-server", "emmet-ls", "eslint-ls"]
 
 [language-server.typescript-language-server]
 command = "typescript-language-server"
 args = ["--stdio"]
 
-[language-server.typescript-language-server.config]
-"ui.diagnostic.staticcheck" = true
-
-[language-server.typescript-language-server.config.hints]
-assignVariableTypes = true
-constantValues = true
-functionTypeParameters = true
-parameterNames = true
-rangeVariableTypes = true
-
+# JAVASCRIPT & REACT (JSX)
 [[language]]
 name = "javascript"
 file-types = ["js", "jsx"]
-language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
 formatter = { command = "prettier" }
+language-servers = ["tailwindcss-ls", "typescript-language-server", "emmet-ls", "eslint-ls"]
 
+# HTML
 [[language]]
 name = "html"
-language-servers = [ "tailwindcss-ls", "vscode-html-language-server" , "emmet-ls", "eslint-ls"]
 formatter = { command = "prettier" }
+language-servers = ["tailwindcss-ls", "vscode-html-language-server", "emmet-ls", "eslint-ls"]
 
-[language-server.vscode-html-language-server.config]
-"ui.diagnostic.staticcheck" = true
-
-[language-server.vscode-html-language-server.config.hints]
-assignVariableTypes = true
-constantValues = true
-functionTypeParameters = true
-parameterNames = true
-rangeVariableTypes = true
-
+# CSS
 [[language]]
 name = "css"
-language-servers = [ { name="tailwindcss-ls", except-features = ["hover"] }, "vscode-css-language-server" , "emmet-ls" , "eslint-ls"]
 formatter = { command = "prettier" }
-
-[language-server.vscode-css-language-server.config]
-"ui.diagnostic.staticcheck" = true
-
-[language-server.vscode-css-language-server.config.hints]
-assignVariableTypes = true
-constantValues = true
-functionTypeParameters = true
-parameterNames = true
-rangeVariableTypes = true
+language-servers = ["tailwindcss-ls", "vscode-css-language-server", "emmet-ls", "eslint-ls"]
 
 [[language]]
 name = "scss"
-language-servers = [ { name="tailwindcss-ls", except-features = ["hover"] }, "vscode-css-language-server" , "emmet-ls" , "eslint-ls"]
 formatter = { command = "prettier" }
+language-servers = ["tailwindcss-ls", "vscode-css-language-server", "emmet-ls", "eslint-ls"]
 
+# FISH
 [[language]]
 name = "fish"
 scope = "source.fish"
@@ -173,51 +150,16 @@ source = { git = "https://github.com/ram02z/tree-sitter-fish", rev = "a78aef9abc
 name = "json"
 scope = "source.json"
 injection-regex = "json"
-file-types = [
-  "json",
-  "arb",
-  "ipynb",
-  "geojson",
-  "gltf",
-  "webmanifest",
-  { glob = "flake.lock" },
-  { glob = ".babelrc" },
-  { glob = ".bowerrc" },
-  { glob = ".jscrc" },
-  "js.map",
-  "ts.map",
-  "css.map",
-  { glob = ".jslintrc" },
-  "jsonl",
-  "jsonld",
-  { glob = ".vuerc" },
-  { glob = "composer.lock" },
-  { glob = ".watchmanconfig" },
-  "avsc",
-  "ldtk",
-  "ldtkl",
-  { glob = ".swift-format" },
-  "sublime-build",
-  "sublime-color-scheme",
-  "sublime-commands",
-  "sublime-completions",
-  "sublime-keymap",
-  "sublime-macro",
-  "sublime-menu",
-  "sublime-mousemap",
-  "sublime-project",
-  "sublime-settings",
-  "sublime-theme",
-  "sublime-workspace"
-]
-
-language-servers = [ "vscode-json-language-server" ]
+file-types = ["json", "jsonl", "jsonld", { glob = ".babelrc" }, "js.map", "ts.map"]
+language-servers = ["vscode-json-language-server"]
+formatter = { command = "prettier", args = ["--stdin-filepath", "file.json"] }
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
-[[grammar]]
-name = "json"
-source = { git = "https://github.com/tree-sitter/tree-sitter-json", rev = "73076754005a460947cafe8e03a8cf5fa4fa2938" }
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
+
 
 [[language]]
 name = "jsonc"
@@ -227,7 +169,7 @@ file-types = ["jsonc", { glob = "tsconfig.json" }, { glob = "bun.lock" }]
 comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 grammar = "json"
-language-servers = [ "vscode-json-language-server" ]
+language-servers = ["vscode-json-language-server"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
@@ -239,29 +181,17 @@ file-types = ["json5"]
 language-servers = []
 comment-token = "//"
 indent = { tab-width = 4, unit = "    " }
-# https://json5.org
+
+[[grammar]]
+name = "json"
+source = { git = "https://github.com/tree-sitter/tree-sitter-json", rev = "73076754005a460947cafe8e03a8cf5fa4fa2938" }
 
 [[grammar]]
 name = "json5"
 source = { git = "https://github.com/Joakker/tree-sitter-json5", rev = "c23f7a9b1ee7d45f516496b1e0e4be067264fa0d" }
 
+# DEBUGGING
 [debugger.lldb]
 name = "lldb-vscode"
 transport = "stdio"
 command = "lldb-vscode"
-
-# [language-server.eslint.config]
-# # format = true
-# nodePath = ""
-# # onIgnoredFiles = "off"
-# # packageManager = "yarn"
-# quiet = false
-# rulesCustomizations = []
-# run = "onType"
-# # useESLintClass = false
-# validate = "on"
-# codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
-# # codeActionsOnSave = { mode = "all" }
-# experimental = {}
-# problems = { shortenToSingleLine = false }
-# workingDirectory = { mode = "auto" }

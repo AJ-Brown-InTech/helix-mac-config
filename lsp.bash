@@ -1,5 +1,74 @@
 #!/bin/bash
 
+# Ensure the script runs with sudo or appropriate permissions
+if [[ $EUID -ne 0 ]]; then
+    echo "Please run this script as root or with sudo"
+    exit 1
+fi
+
+# Detect package manager
+if command -v apt &> /dev/null; then
+    PKG_MANAGER="apt"
+elif command -v dnf &> /dev/null; then
+    PKG_MANAGER="dnf"
+elif command -v brew &> /dev/null; then
+    PKG_MANAGER="brew"
+elif command -v yay &> /dev/null; then
+    PKG_MANAGER="yay"\else
+    echo "No supported package manager found. Exiting."
+    exit 1
+fi
+
+# Function to install a package if not already installed
+install_package() {
+    if ! command -v "$1" &> /dev/null; then
+        echo "Installing $1..."
+        case $PKG_MANAGER in
+            apt) apt update && apt install -y "$1" ;;
+            dnf) dnf install -y "$1" ;;
+            brew) brew install "$1" ;;
+            yay) yay -S --noconfirm "$1" ;;
+        esac
+    else
+        echo "$1 is already installed. Skipping."
+    fi
+}
+
+# Install language servers
+install_package clangd   # C/C++
+install_package gopls    # Go
+install_package ruff     # Python linter
+install_package rust-analyzer # Rust
+install_package bufls    # Protobuf
+install_package yaml-language-server # YAML
+install_package typescript-language-server # TypeScript/JavaScript
+install_package marksman # Markdown
+install_package lua-language-server # Lua
+install_package bash-language-server # Bash
+install_package cmake-language-server # CMake
+install_package vim-language-server # Vim script
+install_package zls # Zig
+
+# Install formatters
+install_package prettier  # JavaScript/TypeScript/HTML/CSS
+install_package goimports # Go
+install_package black     # Python
+install_package taplo     # TOML
+install_package stylua    # Lua
+install_package rustfmt   # Rust
+install_package swift-format # Swift
+
+# Install debuggers
+install_package lldb      # C/C++/Rust debugger
+install_package delve     # Go debugger
+
+# Install additional tools
+install_package tree-sitter-cli # Tree-sitter for syntax parsing
+install_package jq        # JSON processing
+install_package fd        # Fast file search
+install_package ripgrep   # Better grep
+install_package fzf       # Fuzzy finder
+
 # Function to check if a command exists
 command_exists() {
     command -v "$1" >/dev/null 2>&1
@@ -57,11 +126,6 @@ else
     echo "Please install exa manually."
 fi
 
-# Install Starship prompt
-curl -sS https://starship.rs/install.sh | sh
-
-echo 'starship init fish | source' >> ~/.config/fish/config.fish
-
 # Install Git Delta (Better Git Diffs)
 if command_exists apt-get; then
     sudo apt-get install -y git-delta
@@ -79,10 +143,12 @@ install_npm_package "pyright"
 install_npm_package "typescript-language-server"
 install_npm_package "prettier"
 install_npm_package "svelte-language-server"
+install_npm_package "vscode-json-languageserver"
 
 # Install gopls & goimports
 install_go_package "golang.org/x/tools/gopls"
 install_go_package "golang.org/x/tools/cmd/goimports"
+install_go_package "github.com/go-delve/delve/cmd/dlv"  # Delve debugger
 
 # Install Python tools
 pip install ruff-lsp black debugpy
