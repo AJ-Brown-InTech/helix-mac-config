@@ -64,6 +64,11 @@ formatter = { command = "goimports" }
 debugger = { command = "dlv", args = ["dap"] }
 language-servers = ["gopls"]
 
+[debugger.dlv]
+name = "dlv"  
+command = "dlv"
+args = ["dap"]
+
 [language-server.gopls]
 command = "gopls"
 args = ["-logfile=/tmp/gopls.log", "serve"]
@@ -160,7 +165,6 @@ indent = { tab-width = 2, unit = "  " }
 command = "vscode-json-language-server"
 args = ["--stdio"]
 
-
 [[language]]
 name = "jsonc"
 scope = "source.json"
@@ -190,8 +194,8 @@ source = { git = "https://github.com/tree-sitter/tree-sitter-json", rev = "73076
 name = "json5"
 source = { git = "https://github.com/Joakker/tree-sitter-json5", rev = "c23f7a9b1ee7d45f516496b1e0e4be067264fa0d" }
 
-# DEBUGGING
-[debugger.lldb]
-name = "lldb-vscode"
-transport = "stdio"
-command = "lldb-vscode"
+# # DEBUGGING
+# [debugger.lldb]
+# name = "lldb-vscode"
+# transport = "stdio"
+# command = "lldb-vscode"
