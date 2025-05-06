@@ -8,7 +8,7 @@ config = { typescript = { tsdk = "~/.volta/tools/image/packages/typescript/lib/n
 [language-server.tailwindcss-ls]
 command = "tailwindcss-language-server"
 args = ["--stdio"]
-config = { userLanguages = { astro = "html", "*.astro" = "html" }}
+config = { userLanguages = { astro = "html", "*.astro" = "html", svelte = "html", "*.svelte" = "html", rust = "html", "*.rs" = "html" }}
 
 [language-server.emmet-ls]
 command = "emmet-language-server"
@@ -90,50 +90,76 @@ templates = []
 [[language]]
 name = "svelte"
 scope = "source.svelte"
-injection-regex = "(svelte|.server.ts)"
 file-types = ["svelte", "+page.server.ts", "+layout.server.ts", "+endpoint.ts"]
 roots = ["package.json", "svelte.config.js", ".git", ".svelte-kit"]
+# Formatter using the svelte-language-server
 formatter = { command = "prettier", args = ["--parser", "svelte"] }
-language-servers = ["tailwindcss-ls", "svelte-language-server", "emmet-ls", "eslint-ls"]
+# Language servers for Svelte and other tools
+language-servers = [ { name = "tailwindcss-ls", except-features = ["hover"] }, "emmet-ls", "eslint-ls", "typescript-language-server", {name = "svelteserver", except-features = ["hover"]} ]
 
-[language-server.svelte-language-server]
-command = "svelte-language-server"
-args = ["--stdio"]
+
+# [language-server.svelte-ls.config]
+# validate = true
+# useWorkspaceDependencies = true
+# hover = true
+
+[language-server.prettier]
+command = "prettier"
+args = ["--parser", "svelte"]
+[language-server.prettier.config]
+hover = true
+useWorkspaceDependencies = true
+
+[[grammar]]
+name = "svelte"
+source = { git = "https://github.com/Himujjal/tree-sitter-svelte", rev = "main" } # or your fork with query support
+
 
 # TYPESCRIPT & REACT (TSX)
 [[language]]
 name = "typescript"
-file-types = ["ts", "tsx"]
-formatter = { command = "prettier", args = ["--stdin-filepath", "file.tsx"] }
-language-servers = ["tailwindcss-ls", "typescript-language-server", "emmet-ls", "eslint-ls"]
+file-types = ["ts",]
+formatter = { command = "typescript-language-server", args = ["--stdin-filepath", "file.tsx"] }
+language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
 
 [language-server.typescript-language-server]
 command = "typescript-language-server"
 args = ["--stdio"]
 
-# JAVASCRIPT & REACT (JSX)
 [[language]]
 name = "javascript"
-file-types = ["js", "jsx"]
-formatter = { command = "prettier" }
-language-servers = ["tailwindcss-ls", "typescript-language-server", "emmet-ls", "eslint-ls"]
+file-types = ["js"]
+formatter = { command = "typescript-language-server" }
+language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
+
+[[language]]
+name = "jsx"
+file-types = ["jsx"]
+formatter = { command = "typescript-language-server" }
+language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
+
+[[language]]
+name = "tsx"
+file-types = ["tsx"]
+formatter = { command = "typescript-language-server" }
+language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
 
 # HTML
 [[language]]
 name = "html"
-formatter = { command = "prettier" }
-language-servers = ["tailwindcss-ls", "vscode-html-language-server", "emmet-ls", "eslint-ls"]
+formatter = { command = "vscode-html-language-server" }
+language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "vscode-html-language-server", "emmet-ls", "eslint-ls"]
 
 # CSS
 [[language]]
 name = "css"
-formatter = { command = "prettier" }
-language-servers = ["tailwindcss-ls", "vscode-css-language-server", "emmet-ls", "eslint-ls"]
+formatter = { command = "vscode-css-language-server" }
+language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "vscode-css-language-server", "emmet-ls", "eslint-ls"]
 
 [[language]]
 name = "scss"
-formatter = { command = "prettier" }
-language-servers = ["tailwindcss-ls", "vscode-css-language-server", "emmet-ls", "eslint-ls"]
+formatter = { command = "tailwindcss-language-server" }
+language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "vscode-css-language-server",  "emmet-ls", "eslint-ls"]
 
 # FISH
 [[language]]
@@ -195,8 +221,51 @@ source = { git = "https://github.com/tree-sitter/tree-sitter-json", rev = "73076
 name = "json5"
 source = { git = "https://github.com/Joakker/tree-sitter-json5", rev = "c23f7a9b1ee7d45f516496b1e0e4be067264fa0d" }
 
+
+# Rust language configuration
+[[language]]
+name = "rust"
+auto-format = true
+language-servers = ["rust-analyzer", "tailwindcss-ls"]
+formatter = { command = "bash", args = ["-c", "rustfmt | dx fmt -f -"] }
+indent = { tab-width = 4, unit = "    " }
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[language-server.rust-analyzer.config]
+inlayHints.bindingModeHints.enable = false
+inlayHints.closingBraceHints.minLines = 10
+inlayHints.closureReturnTypeHints.enable = "with_block"
+inlayHints.discriminantHints.enable = "fieldless"
+inlayHints.lifetimeElisionHints.enable = "skip_trivial"
+inlayHints.typeHints.hideClosureInitialization = false
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+
 # DEBUGGING
 [debugger.lldb]
 name = "lldb-vscode"
 transport = "stdio"
 command = "lldb-vscode"
+
+# SQL
+[[language]]
+name = "sql"
+file-types = ["sql", "dsql"]
+language-servers = ["sqls"]
+comment-token = "--"
+block-comment-tokens = { start = "/*", end = "*/" }
+indent = { tab-width = 4, unit = "    " }
+injection-regex = "sql"
+formatter = { command = "sql-formatter", args = ["--language", "sql"] }
+auto-format = true
+
+[language-server.sqls]
+command = "sqls"
+args = ["--stdio"]
+
+[[grammar]]
+name = "sql"
+source = { git = "https://github.com/DerekStride/tree-sitter-sql", rev = "b9d109588d5b5ed986c857464830c2f0bef53f18" }
