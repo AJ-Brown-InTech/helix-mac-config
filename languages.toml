@@ -1,5 +1,4 @@
 # LANGUAGE SERVERS CONFIGURATION
-
 [language-server.astro-ls]
 command = "astro-ls"
 args = ["--stdio"]
@@ -90,36 +89,20 @@ templates = []
 [[language]]
 name = "svelte"
 scope = "source.svelte"
-file-types = ["svelte", "+page.server.ts", "+layout.server.ts", "+endpoint.ts"]
+file-types = ["svelte", "ts"]
 roots = ["package.json", "svelte.config.js", ".git", ".svelte-kit"]
-# Formatter using the svelte-language-server
-formatter = { command = "prettier", args = ["--parser", "svelte"] }
-# Language servers for Svelte and other tools
-language-servers = [ { name = "tailwindcss-ls", except-features = ["hover"] }, "emmet-ls", "eslint-ls", "typescript-language-server", {name = "svelteserver", except-features = ["hover"]} ]
-
-
-# [language-server.svelte-ls.config]
-# validate = true
-# useWorkspaceDependencies = true
-# hover = true
-
-[language-server.prettier]
-command = "prettier"
-args = ["--parser", "svelte"]
-[language-server.prettier.config]
-hover = true
-useWorkspaceDependencies = true
+formatter = { command = "prettier" }
+language-servers = [ { name = "tailwindcss-ls", except-features = ["hover"] }, "emmet-ls", "eslint-ls", "typescript-language-server", "svelte-language-server"]
 
 [[grammar]]
 name = "svelte"
-source = { git = "https://github.com/Himujjal/tree-sitter-svelte", rev = "main" } # or your fork with query support
-
+source = { git = "https://github.com/Himujjal/tree-sitter-svelte" } # or your fork with query support
 
 # TYPESCRIPT & REACT (TSX)
 [[language]]
 name = "typescript"
-file-types = ["ts",]
-formatter = { command = "typescript-language-server", args = ["--stdin-filepath", "file.tsx"] }
+file-types = ["ts","tsx"]
+formatter = { command = "prettier" }
 language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
 
 [language-server.typescript-language-server]
@@ -129,36 +112,36 @@ args = ["--stdio"]
 [[language]]
 name = "javascript"
 file-types = ["js"]
-formatter = { command = "typescript-language-server" }
+formatter = { command = "prettier" }
 language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
 
 [[language]]
 name = "jsx"
 file-types = ["jsx"]
-formatter = { command = "typescript-language-server" }
+formatter = { command = "prettier" }
 language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
 
 [[language]]
 name = "tsx"
 file-types = ["tsx"]
-formatter = { command = "typescript-language-server" }
+formatter = { command = "prettier" }
 language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
 
 # HTML
 [[language]]
 name = "html"
-formatter = { command = "vscode-html-language-server" }
+formatter = { command = "prettier" }
 language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "vscode-html-language-server", "emmet-ls", "eslint-ls"]
 
 # CSS
 [[language]]
 name = "css"
-formatter = { command = "vscode-css-language-server" }
+formatter = { command = "prettier" }
 language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "vscode-css-language-server", "emmet-ls", "eslint-ls"]
 
 [[language]]
 name = "scss"
-formatter = { command = "tailwindcss-language-server" }
+formatter = { command = "prettier" }
 language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "vscode-css-language-server",  "emmet-ls", "eslint-ls"]
 
 # FISH
@@ -184,9 +167,7 @@ scope = "source.json"
 injection-regex = "json"
 file-types = ["json", "jsonl", "jsonld", { glob = ".babelrc" }, "js.map", "ts.map"]
 language-servers = ["vscode-json-language-server"]
-formatter = { command = "prettier", args = ["--stdin-filepath", "file.json"] }
-auto-format = true
-indent = { tab-width = 2, unit = "  " }
+formatter = { command = "prettier" }
 
 [language-server.vscode-json-language-server]
 command = "vscode-json-language-server"
@@ -201,17 +182,15 @@ comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 grammar = "json"
 language-servers = ["vscode-json-language-server"]
-auto-format = true
-indent = { tab-width = 2, unit = "  " }
+formatter = { command = "prettier" }
 
 [[language]]
 name = "json5"
 scope = "source.json5"
 injection-regex = "json5"
 file-types = ["json5"]
-language-servers = []
-comment-token = "//"
-indent = { tab-width = 4, unit = "    " }
+language-servers = ["vscode-json-language-server"]
+formatter = { command = "prettier" }
 
 [[grammar]]
 name = "json"
@@ -249,6 +228,19 @@ command = "clippy"
 name = "lldb-vscode"
 transport = "stdio"
 command = "lldb-vscode"
+
+# Global configuration for all prettier instances
+[language-server.prettier]
+command = "prettier"
+args = ["--stdio"]
+[language-server.prettier.config]
+hover = true
+useWorkspaceDependencies = true
+useGlobalPrettier = true
+useGlobalEslint = true
+useGlobalTypescript = true
+useGlobalStylelint = true
+useGlobalJson = true
 
 # SQL
 [[language]]
