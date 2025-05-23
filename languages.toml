@@ -1,25 +1,28 @@
-# LANGUAGE SERVERS CONFIGURATION
+# ===========================================
+# NEW LANGUAGE SERVERS CONFIGURATION (helix)
+# ===========================================
+
 [language-server.astro-ls]
 command = "astro-ls"
 args = ["--stdio"]
-config = { typescript = { tsdk = "~/.volta/tools/image/packages/typescript/lib/node_modules/typescript/lib" }, environment = "node"}
+config = { typescript = { tsdk = "~/.volta/tools/image/packages/typescript/lib/node_modules/typescript/lib" }, environment = "node" }
+
+[[language]]
+name = "astro"
+file-types = ["astro"]
+language-servers = ["astro-ls", "emmet-ls", "eslint-ls", "tailwindcss-ls", "typescript-language-server"]
+formatter = { command = "prettier" }
 
 [language-server.tailwindcss-ls]
 command = "tailwindcss-language-server"
 args = ["--stdio"]
-config = { userLanguages = { astro = "html", "*.astro" = "html", svelte = "html", "*.svelte" = "html", rust = "html", "*.rs" = "html" }}
+config = { userLanguages = { astro = "html", "*.astro" = "html", svelte = "html", "*.svelte" = "html", rust = "html", "*.rs" = "html" } }
 
 [language-server.emmet-ls]
 command = "emmet-language-server"
 args = ["--stdio"]
 
 # ESLint configuration
-# Note: The ESLint language server is configured to use the ESLint CLI engine.
-# This means it will use the ESLint configuration from your project.
-# Ensure you have ESLint installed in your project.
-# You can install it using npm or yarn:
-# npm install eslint --save-dev
-# yarn add eslint --dev
 [language-server.eslint-ls]
 command = "vscode-eslint-language-server"
 args = ["--stdio"]
@@ -30,7 +33,6 @@ validate = "on"
 [language-server.eslint-ls.config.experimental]
 useFlatConfig = false
 
-# Empty array for rule customizations
 language-server.eslint-ls.config.rulesCustomizations = []
 
 [language-server.eslint-ls.config.problems]
@@ -53,10 +55,29 @@ mode = "fixAll"
 mode = "location"
 
 [language-server.eslint-ls.config.run]
-# Note: Based on your original, you likely meant:
 run = "onType"
 
-# GO
+# Docker configuration
+[language-server.docker-langserver]
+command = "docker-langserver"
+args = ["--stdio"]
+
+[[language]]
+name = "dockerfile"
+file-types = ["Dockerfile"]
+language-servers = ["docker-langserver"]
+
+# dot language server configuration
+[language-server.dot-language-server]
+command = "dot-language-server"
+args = ["--stdio"]
+
+[[language]]
+name = "dot"
+file-types = ["dot"]
+language-servers = ["dot-language-server"]
+
+# golang language server configuration
 [[language]]
 name = "go"
 formatter = { command = "goimports" }
@@ -66,8 +87,6 @@ language-servers = ["gopls"]
 command = "gopls"
 args = ["-logfile=/tmp/gopls.log", "serve"]
 
-# [language-server.gopls.config]
-# "ui.diagnostic.staticcheck" = true
 [language-server.gopls.config.ui.diagnostic]
 staticcheck = true
 
@@ -78,73 +97,82 @@ functionTypeParameters = true
 parameterNames = true
 rangeVariableTypes = true
 
-[debugger.dlv]
-name = "dlv"
-command = "dlv"
-args = ["dap"]
-transport = "stdio"
-templates = []
+# Gomod language server configuration
+[[language]]
+name = "gomod"
+formatter = { command = "gopls" }
+language-servers = ["gopls"]
 
-# SVELTE
+# Gotmpl language server configuration
+[[language]]
+name = "gotmpl"
+formatter = { command = "gopls" }
+language-servers = ["gopls"]
+
+# Gowork language server configuration
+[[language]]
+name = "gowork"
+formatter = { command = "gopls" }
+language-servers = ["gopls"]
+
+# Svelte language server configuration
 [[language]]
 name = "svelte"
 scope = "source.svelte"
-file-types = ["svelte", "ts"]
 roots = ["package.json", "svelte.config.js", ".git", ".svelte-kit"]
 formatter = { command = "prettier" }
-language-servers = [ { name = "tailwindcss-ls", except-features = ["hover"] }, "emmet-ls", "eslint-ls", "typescript-language-server", "svelte-language-server"]
+language-servers = ["tailwindcss-ls", "emmet-ls", "eslint-ls", "typescript-language-server", "svelte-language-server"]
 
 [[grammar]]
 name = "svelte"
-source = { git = "https://github.com/Himujjal/tree-sitter-svelte" } # or your fork with query support
+source = { git = "https://github.com/Himujjal/tree-sitter-svelte" }
 
-# TYPESCRIPT & REACT (TSX)
+# TypeScript language server configuration
 [[language]]
 name = "typescript"
-file-types = ["ts","tsx"]
 formatter = { command = "prettier" }
-language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
+language-servers = ["tailwindcss-ls", "typescript-language-server", "emmet-ls", "eslint-ls"]
 
 [language-server.typescript-language-server]
 command = "typescript-language-server"
 args = ["--stdio"]
 
+# JavaScript language server configuration
 [[language]]
 name = "javascript"
-file-types = ["js"]
 formatter = { command = "prettier" }
-language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
+language-servers = ["tailwindcss-ls", "typescript-language-server", "emmet-ls", "eslint-ls"]
 
 [[language]]
 name = "jsx"
-file-types = ["jsx"]
 formatter = { command = "prettier" }
-language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
+language-servers = ["tailwindcss-ls", "typescript-language-server", "emmet-ls", "eslint-ls"]
 
 [[language]]
 name = "tsx"
-file-types = ["tsx"]
 formatter = { command = "prettier" }
-language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "typescript-language-server", "emmet-ls", "eslint-ls"]
+language-servers = ["tailwindcss-ls", "typescript-language-server", "emmet-ls", "eslint-ls"]
 
-# HTML
 [[language]]
 name = "html"
 formatter = { command = "prettier" }
-language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "vscode-html-language-server", "emmet-ls", "eslint-ls"]
+language-servers = ["tailwindcss-ls", "vscode-html-language-server", "emmet-ls", "eslint-ls"]
 
-# CSS
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
+args = ["--stdio"]
+
 [[language]]
 name = "css"
 formatter = { command = "prettier" }
-language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "vscode-css-language-server", "emmet-ls", "eslint-ls"]
+language-servers = [ "tailwindcss-ls", "vscode-css-language-server", "emmet-ls", "eslint-ls"]
 
 [[language]]
 name = "scss"
 formatter = { command = "prettier" }
-language-servers = [{ name = "tailwindcss-ls", except-features = ["hover"] }, "vscode-css-language-server",  "emmet-ls", "eslint-ls"]
+language-servers = ["tailwindcss-ls", "vscode-css-language-server", "emmet-ls", "eslint-ls"]
 
-# FISH
+# fish language server configuration
 [[language]]
 name = "fish"
 scope = "source.fish"
@@ -157,28 +185,30 @@ indent = { tab-width = 4, unit = "    " }
 auto-format = true
 formatter = { command = "fish_indent" }
 
+[language-server.fish-language-server]
+command = "fish-language-server"
+args = ["--stdio"]
+
 [[grammar]]
 name = "fish"
 source = { git = "https://github.com/ram02z/tree-sitter-fish", rev = "a78aef9abc395c600c38a037ac779afc7e3cc9e0" }
 
+# JSON language server configuration
 [[language]]
 name = "json"
-scope = "source.json"
+grammar = "json"
+# scope = "source.json"
 injection-regex = "json"
-file-types = ["json", "jsonl", "jsonld", { glob = ".babelrc" }, "js.map", "ts.map"]
+# file-types = ["json", "jsonl", "jsonld", { glob = ".babelrc" }, "js.map", "ts.map"]
+block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = ["vscode-json-language-server"]
 formatter = { command = "prettier" }
 
-[language-server.vscode-json-language-server]
-command = "vscode-json-language-server"
-args = ["--stdio"]
-
 [[language]]
 name = "jsonc"
-scope = "source.json"
+# scope = "source.json"
 injection-regex = "jsonc"
-file-types = ["jsonc", { glob = "tsconfig.json" }, { glob = "bun.lock" }]
-comment-token = "//"
+# file-types = ["jsonc", { glob = "tsconfig.json" }, { glob = "bun.lock" }]
 block-comment-tokens = { start = "/*", end = "*/" }
 grammar = "json"
 language-servers = ["vscode-json-language-server"]
@@ -186,9 +216,10 @@ formatter = { command = "prettier" }
 
 [[language]]
 name = "json5"
+grammar = "json5"
 scope = "source.json5"
 injection-regex = "json5"
-file-types = ["json5"]
+block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = ["vscode-json-language-server"]
 formatter = { command = "prettier" }
 
@@ -200,8 +231,11 @@ source = { git = "https://github.com/tree-sitter/tree-sitter-json", rev = "73076
 name = "json5"
 source = { git = "https://github.com/Joakker/tree-sitter-json5", rev = "c23f7a9b1ee7d45f516496b1e0e4be067264fa0d" }
 
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
 
-# Rust language configuration
+# Rust language server configuration
 [[language]]
 name = "rust"
 auto-format = true
@@ -223,26 +257,7 @@ inlayHints.typeHints.hideClosureInitialization = false
 [language-server.rust-analyzer.config.check]
 command = "clippy"
 
-# DEBUGGING
-[debugger.lldb]
-name = "lldb-vscode"
-transport = "stdio"
-command = "lldb-vscode"
-
-# Global configuration for all prettier instances
-[language-server.prettier]
-command = "prettier"
-args = ["--stdio"]
-[language-server.prettier.config]
-hover = true
-useWorkspaceDependencies = true
-useGlobalPrettier = true
-useGlobalEslint = true
-useGlobalTypescript = true
-useGlobalStylelint = true
-useGlobalJson = true
-
-# SQL
+# sql language server configuration
 [[language]]
 name = "sql"
 file-types = ["sql", "dsql"]
@@ -261,3 +276,85 @@ args = ["--stdio"]
 [[grammar]]
 name = "sql"
 source = { git = "https://github.com/DerekStride/tree-sitter-sql", rev = "b9d109588d5b5ed986c857464830c2f0bef53f18" }
+
+# C language server configuration
+[[language]]
+name = "c"
+file-types = ["c", "h"]
+formatter = { command = "clang-format", args = ["-style=Google"] }
+language-servers = ["clangd"]
+
+# Toml language server configuration
+[[language]]
+name = "toml"
+formatter = { command = "taplo"}
+language-servers = ["taplo"]
+
+# Markdown language server configuration
+[[language]]
+name = "markdown"
+formatter = { command = "marksman"}
+language-servers = ["marksman"]
+
+# Zig language server configuration
+[[language]]
+name = "zig"
+formatter = { command = "zls" }
+language-servers = ["zls"]
+
+[language-server.zls]
+command = "zls"
+args = ["--stdio"]
+
+# Yaml language server configuration
+[[language]]
+name = "yaml"
+# file-types = ["c", "h"]
+formatter = { command = "yaml-language-server"}
+language-servers = ["yaml-language-server"]
+
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
+
+# Python language server configuration
+[language-server.pyright]
+command = "pyright"
+args = ["--stdio"]
+
+[[language]]
+name = "python"
+file-types = ["py"]
+language-servers = ["pyright", "ruff-lsp"]
+formatter = { command = "black" }
+
+[language-server.ruff-lsp]
+command = "ruff-lsp"
+args = ["--stdio"]
+
+# Debugger configuration
+[debugger.lldb]
+name = "lldb-dap"
+transport = "stdio"
+command = "/opt/homebrew/opt/llvm/bin/lldb-dap"
+
+[debugger.dlv]
+name = "dlv"
+command = "dlv"
+args = ["dap"]
+transport = "stdio"
+
+# Formatter configuration
+[language-server.prettier]
+command = "prettier"
+args = ["--stdio"]
+
+# Global configuration for Prettier
+[language-server.prettier.config]
+hover = true
+useWorkspaceDependencies = true
+useGlobalPrettier = true
+useGlobalEslint = true
+useGlobalTypescript = true
+useGlobalStylelint = true
+useGlobalJson = true
