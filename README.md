@@ -1,46 +1,30 @@
 ## Setting up Helix Text Editor Environment
 
-### Step 1: Run the Bash Script
+### Step 1: Clone the Repository
+
+First, clone the configuration repository to a local directory.
 
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/helix-config.git
+```
 
-# Change to the repository directory
+-----
+
+### Step 2: Configure Helix Text Editor
+
+**Copy the files** from the cloned repository directly into your **`~/.config/helix/`** directory. This directory is where Helix looks for its configuration files (`config.toml`, `languages.toml`). If the `~/.config/helix/` directory doesn't exist, create it first.
+
+```bash
+# Create the Helix configuration directory if it doesn't exist
+mkdir -p ~/.config/helix/
+
+# Change into the cloned repository directory
 cd helix-config
 
-# Run the setup script
-bash setup.sh
+# Copy all necessary files to ~/.config/helix/
+# This assumes the 'theme' directory, 'config.toml', and 'languages.toml' are in the root of the cloned repo.
+cp -r config.toml languages.toml ~/.config/helix/
 ```
 
-### Step 2: Update Bash or Zsh Configuration
-
-Copy the content of `bashrc.txt` and paste it into your `~/.bashrc` (if using Bash) or `~/.zshrc` (if using Zsh) file.
-
-```bash
-# Open your preferred text editor
-nano ~/.bashrc  # or nano ~/.zshrc
-
-# Paste the content of bashrc.txt at the end of the file
-# Save and exit the text editor
-```
-
-### Step 3: Configure Helix Text Editor
-
-Navigate to your `~/.config/helix/` directory.
-
-```bash
-cd ~/.config/helix/
-```
-
-Copy the `theme` directory, `config.toml`, and `languages.toml` from the cloned repository into the `~/.config/helix/` directory.
-
-```bash
-cp -r /path/to/cloned/repo/theme ~/.config/helix/
-cp /path/to/cloned/repo/config.toml ~/.config/helix/
-cp /path/to/cloned/repo/languages.toml ~/.config/helix/
-```
-
-### Step 4: Restart your Text Editor
-
-Restart your Helix text editor, and your development environment should be set up according to your personal preferences.
+-----
