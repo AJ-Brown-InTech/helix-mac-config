@@ -34,7 +34,7 @@ docker-langserver = { command = "docker-langserver", args = ["--stdio"] }
 docker-compose-langserver = { command = "docker-compose-langserver", args = ["--stdio"]}
 dot-language-server = { command = "dot-language-server", args = ["--stdio"] }
 earthlyls = { command = "earthlyls" }
-elixir-ls = { command = "elixir-ls", config = { elixirLS.dialyzerEnabled = false } }
+elixir-ls = { command = "elixir-ls", config = { elixirLS.dialyzerEnabled = true } }
 elm-language-server = { command = "elm-language-server" }
 elp = { command = "elp", args = ["server"] }
 elvish = { command = "elvish", args = ["-lsp"] }
@@ -167,9 +167,12 @@ paramName = "All"
 paramType = true
 await = true
 
-
 [language-server.gopls]
 command = "gopls"
+args = ["-logfile=/tmp/gopls.log", "serve"]
+
+[language-server.gopls.config.ui.diagnostic]
+staticcheck = true
 
 [language-server.gopls.config.hints]
 assignVariableTypes = true
@@ -178,6 +181,13 @@ constantValues = true
 functionTypeParameters = true
 parameterNames = true
 rangeVariableTypes = true
+
+[debugger.dlv]
+name = "dlv"
+command = "dlv"
+args = ["dap"]
+transport = "stdio"
+templates = []
 
 [language-server.golangci-lint-lsp]
 command = "golangci-lint-langserver"
@@ -393,9 +403,9 @@ injection-regex = "(elixir|ex)"
 file-types = ["ex", "exs", { glob = "mix.lock" }]
 shebangs = ["elixir"]
 roots = ["mix.exs", "mix.lock"]
-
-language-servers = [ "elixir-ls" ]
 indent = { tab-width = 2, unit = "  " }
+formatter = { command = "mix", args = ["format", "--stdin"]}
+language-servers = ["elixir-ls"] 
 
 [[grammar]]
 name = "elixir"
@@ -691,14 +701,8 @@ source = { git = "https://github.com/jzelinskie/tree-sitter-spicedb", rev = "a4e
 
 [[language]]
 name = "go"
-scope = "source.go"
-injection-regex = "go"
-file-types = ["go"]
-roots = ["go.work", "go.mod"]
-
+formatter = { command = "goimports" }
 language-servers = [ "gopls", "golangci-lint-lsp" ]
-# TODO: gopls needs utf-8 offsets?
-indent = { tab-width = 4, unit = "\t" }
 
 [language.debugger]
 name = "go"
@@ -1672,6 +1676,7 @@ file-types = ["md", "livemd", "markdown", "mdx", "mkd", "mkdn", "mdwn", "mdown",
 roots = [".marksman.toml"]
 language-servers = [ "marksman", "markdown-oxide" ]
 indent = { tab-width = 2, unit = "  " }
+# config = { markdown.preview.auto = true }
 
 
 [[grammar]]
