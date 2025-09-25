@@ -1,7 +1,7 @@
 ## Full documentation: https://docs.helix-editor.com/configuration.html
 
 # General Configuration
-theme = "molokai"
+theme = "flatwhite"
 
 # Editor Configuration
 [editor]
@@ -28,7 +28,7 @@ color-modes = true
 text-width = 100
 workspace-lsp-roots = []
 insert-final-newline = true
-rulers = [80, 80]
+rulers = [80, 100, 120]
 
 # Statusline Configuration
 [editor.statusline]
@@ -98,7 +98,7 @@ tabpad = "·"
 # Indent Guides Configuration
 [editor.indent-guides]
 render = true
-character =  "┆" # Some characters that work well: "▏", "┆", "┊", "⸽"
+character =  "⸽" # Some characters that work well: "▏", "┆", "┊", "⸽"
 skip-levels = 1
 
 # Gutters Configuration
@@ -106,15 +106,15 @@ skip-levels = 1
 layout = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
 
 [editor.gutters.line-numbers]
-min-width = 3
+min-width = 5
 
 # Soft Wrap Configuration
 [editor.soft-wrap]
-enable = false
-max-wrap = 20
-max-indent-retain = 40
+enable = true
+# max-wrap = 20
+# max-indent-retain = 40
 wrap-indicator = "↪"
-wrap-at-text-width = false
+wrap-at-text-width = true
 
 # Smart Tab Configuration
 [editor.smart-tab]
@@ -122,8 +122,11 @@ enable = true
 supersede-menu = true
 
 # Lazygit Configuration
-[keys.normal]
-C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
-C-o = ":open ~/.config/helix/config.toml" # Maps Ctrl-o to opening of the helix config file
-ret = [":w!","open_below", "normal_mode"]
-C-r = [":new", ":insert-output ranger", ":buffer-close!", ":redraw"]
+# [keys.normal]
+# commented out because of zellij
+# C-G = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
+# C-O = ":open ~/.config/helix/config.toml" # Maps Ctrl-o to opening of the helix config file
+# ret = [":w!","open_below", "normal_mode"]
+# C-R = [":new", ":insert-output ranger", ":buffer-close!", ":redraw"]
+# C-L = ":toggle line-number relative"
+
