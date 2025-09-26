@@ -1989,9 +1989,9 @@ scope = "source.gleam"
 injection-regex = "gleam"
 file-types = ["gleam"]
 roots = ["gleam.toml"]
-
 indent = { tab-width = 2, unit = "  " }
-language-servers = [ "gleam" ]
+language-servers = [ { name = "gleam" } ]
+formatter = { command = "gleam", args = ["format", "--stdin"] }
 
 [[grammar]]
 name = "gleam"
