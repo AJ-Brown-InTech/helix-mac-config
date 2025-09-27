@@ -1916,7 +1916,11 @@ roots = ["rebar.config"]
 shebangs = ["escript"]
 comment-token = "%%"
 indent = { tab-width = 4, unit = "    " }
-language-servers = [ "erlang-ls", "elp" ]
+language-servers = [ "erlang-ls"]
+
+[language.formatter]
+command = "erlfmt"
+args = ["-"]
 
 [[grammar]]
 name = "erlang"
@@ -1990,8 +1994,9 @@ injection-regex = "gleam"
 file-types = ["gleam"]
 roots = ["gleam.toml"]
 indent = { tab-width = 2, unit = "  " }
-language-servers = [ { name = "gleam" } ]
+language-servers = [ { name = "gleam" }, "gleam-lsp" ]
 formatter = { command = "gleam", args = ["format", "--stdin"] }
+auto-format = true
 
 [[grammar]]
 name = "gleam"
